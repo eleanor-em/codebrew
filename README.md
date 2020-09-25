@@ -20,7 +20,7 @@ To install dependencies:
 in __client__ folder (which is under react-app folder)
 
 To run, you need two terminals:
-First, start the express server: `npm start` under __react-app__ folder
-Second, start react frontend: `npm start` under __client__ folder
+1. Start the express server: `npm start` under __react-app__ folder
+2. Start react frontend: `npm start` under __client__ folder
 
 The files are set up for react to proxy to backend server for api calls. 
