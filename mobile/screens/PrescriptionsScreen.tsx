@@ -10,6 +10,13 @@ interface PrescriptionsScreenProps {
 }
 
 export default function PrescriptionsScreen(props: PrescriptionsScreenProps) {
+    // This screen just leads to the sub-screens.
+    //
+    // CurrentPrescriptions should display a list of all of the prescriptions the user currently has. Tap the prescription
+    // to display a detailed view with more records etc.
+    //
+    // LastRepeat should show the list of prescriptions that are on their last repeat. If this isn't 0, the button
+    // should show a warning icon of some kind.
     return (
         <View style={styles.container}>
             <Button
