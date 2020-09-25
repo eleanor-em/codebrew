@@ -6,3 +6,21 @@ To install Expo:
 2. `npm i --global expo-cli`
 
 To run: `npm start` (in `mobile/prescriptify`)
+
+### react-app
+
+## Express server:
+To install dependencies:
+`npm install`
+in __react-app__ folder
+
+## React frontend:
+To install dependencies:
+`npm install`
+in __client__ folder (which is under react-app folder)
+
+To run, you need two terminals:
+First, start the express server: `npm start` under __react-app__ folder
+Second, start react frontend: `npm start` under __client__ folder
+
+The files are set up for react to proxy to backend server for api calls. 
