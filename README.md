@@ -9,12 +9,12 @@ To run: `npm start` (in `mobile/prescriptify`)
 
 ### react-app
 
-## Express server:
+### Express server:
 To install dependencies:
 `npm install`
 in __react-app__ folder
 
-## React frontend:
+### React frontend:
 To install dependencies:
 `npm install`
 in __client__ folder (which is under react-app folder)
