@@ -14,6 +14,7 @@ function registerPatient(req, res) {
           phone: req.body.phone,
           name: req.body.name,
           SMSpasscode: '123456',
+          confirmed: false,
           patient_key: crypto.randomBytes(32).toString('hex'),
         })
 
@@ -39,7 +40,14 @@ function confirmPhoneNumber(req, res) {
       if (docs.length === 0) {
         res.send({status: false})
       } else {
-        res.send({status: true, patient_key: docs[0].patient_key})
+        docs[0].confirmed = true;
+        docs[0].save(function(err, data) {
+          if(err){
+            res.send('error-saving');
+          } else {
+            res.send({status: true, patient_key: docs[0].patient_key});
+          }
+        })
       }
     }
   }) 
