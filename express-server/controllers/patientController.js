@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const Prescription = require('../models/prescription');
 const Patient = mongoose.model('Patient');
 const crypto = require('crypto');
+const sendSmsCode = require('./sendSmsCode');
 
 function registerPatient(req, res) {
   Patient.find({phone: req.body.phone}, function(err, patient){
@@ -24,6 +25,7 @@ function registerPatient(req, res) {
           if(err){
             res.send('error-saving');
           } else {
+            sendSmsCode(newPatient.SMSpasscode, newPatient.phone);
             res.send({status: true});
           }
         })
