@@ -21,10 +21,21 @@ async function registerPatient(phoneNumber: string, name: string): Promise<boole
     return data.status;
 }
 
-async function checkSmsCode(smsCode: string): Promise<string | null> {
-    // TODO: mock function
-    if (smsCode == validSmsCode) {
-        return alicePatientKey;
+async function checkSmsCode(phoneNumber: string, smsCode: string): Promise<string | null> {
+    const response = await fetch(config.apiAddress + '/confirmPhoneNumber', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        redirect: 'follow',
+        body: JSON.stringify({
+            phone: phoneNumber,
+            SMSpasscode: smsCode,
+        })
+    });
+    const data = await response.json();
+    if (data.status) {
+        return data.patient_key;
     } else {
         return null;
     }

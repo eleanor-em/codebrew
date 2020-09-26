@@ -43,12 +43,12 @@ export default function RegisterScreen(props: RegisterScreenProps) {
 
     function onCodeEntered(code: string) {
         async function checkCodeValid() {
-            const receivedKey = await Api.checkSmsCode(code);
+            const receivedKey = await Api.checkSmsCode(phoneNumber, code);
             if (receivedKey != null) {
                 setPatientKey(receivedKey);
                 setRegisterState(RegisterState.CreatePin);
             } else {
-                Alert.alert('Code incorrect. Please try again');
+                Alert.alert('Code incorrect. Please try again.');
             }
         }
 
