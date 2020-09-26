@@ -14,7 +14,7 @@ enum RegisterState {
 };
 
 interface RegisterScreenProps {
-    onRegistered(name: string, patientKey: string): void,
+    onRegistered(name: string, phoneNumber: string, patientKey: string): void,
 }
 
 export default function RegisterScreen(props: RegisterScreenProps) {
@@ -56,10 +56,11 @@ export default function RegisterScreen(props: RegisterScreenProps) {
         async function savePatientData() {
             console.log('[DEBUG] saving data...');
             await SecureStore.setItemAsync('name', name);
+            await SecureStore.setItemAsync('phoneNumber', phoneNumber);
             await SecureStore.setItemAsync('patientKey', patientKey);
             await SecureStore.setItemAsync('pin', pin);
             console.log('[DEBUG] saved data');
-            props.onRegistered(name, patientKey);
+            props.onRegistered(name, phoneNumber, patientKey);
         }
         savePatientData();
     }

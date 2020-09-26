@@ -51,6 +51,7 @@ export default function RegisterForm(props: RegisterFormProps) {
                         onBlur={handleBlur('name')}
                         value={values.name}
                     />
+                    {/* Type error below is due to Formik */}
                     <Button onPress={handleSubmit} title="Register" />
                 </View>
             )}

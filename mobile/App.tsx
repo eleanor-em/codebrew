@@ -4,7 +4,7 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
-import Navigation from './navigation';
+import {Navigation} from './navigation';
 import * as SecureStore from "expo-secure-store";
 import {Text, View} from './components/Themed';
 import * as Api from './api';
@@ -25,6 +25,7 @@ export default function App() {
     const [ready, setReady] = React.useState(false);
 
     const [name, setName] = React.useState('');
+    const [phoneNumber, setPhoneNumber] = React.useState('');
     const [patientKey, setPatientKey] = React.useState('');
 
     // Check if there is a PIN in storage
@@ -45,9 +46,10 @@ export default function App() {
     }, []);
 
     // Callback for when the user first registers
-    function onRegistered(name: string, patientKey: string) {
+    function onRegistered(name: string, phoneNumber: string, patientKey: string) {
         setHasPin(true);
         setName(name);
+        setPhoneNumber(phoneNumber);
         setPatientKey(patientKey);
         setPinValidated(true);
         setReady(true);
@@ -57,6 +59,7 @@ export default function App() {
     function onPinEntered(enteredPin: string) {
         async function loadRestOfData() {
             const name = await SecureStore.getItemAsync('name');
+            const phoneNumber = await SecureStore.getItemAsync('phoneNumber');
             const patientKey = await SecureStore.getItemAsync('patientKey');
 
             if (name != null && patientKey != null) {
@@ -111,7 +114,11 @@ export default function App() {
     } else {
         return (
             <SafeAreaProvider>
-                <Navigation colorScheme={colorScheme}/>
+                <Navigation colorScheme={colorScheme} patientData={{
+                    name,
+                    phoneNumber,
+                    patientKey
+                }} />
                 <StatusBar/>
             </SafeAreaProvider>
         );
