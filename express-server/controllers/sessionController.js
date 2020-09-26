@@ -54,19 +54,6 @@ const logout = (req, res, next) => {
     }
 }
 
-// // Fetch the user data based on ID.
-// const getUserByID = (req, res, next) => {
-//     MedicalProfessional.findById(req.session.passwordHash)
-//         .populate('invitations.receivedFrom')
-//         .exec(function(err, data) {
-//             if(err) {
-//                 console.log(err)
-//             } else {
-//                 res.send(data);
-//             }
-//         })
-// }
-
 
 
 

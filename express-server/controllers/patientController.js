@@ -21,7 +21,7 @@ function registerPatient(req, res) {
           patient_key: crypto.randomBytes(32).toString('hex'),
         })
 
-        newPatient.save(function(err, data){
+        newPatient.save(function(err, _){
           if(err){
             res.send('error-saving');
           } else {
@@ -57,10 +57,8 @@ function confirmPhoneNumber(req, res) {
   }) 
 }
 
-
-
 function getUserPrescriptions(req, res) {
-  Patient.find({phone: req.body.phone, patient_key: req.body.patient_key})
+  Patient.find({phone: req.body.phone, patient_key: req.body.patient_key, confirmed: true})
     .populate('prescriptions')
     .populate({
         path: 'prescriptions',

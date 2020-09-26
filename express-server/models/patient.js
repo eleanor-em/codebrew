@@ -7,7 +7,9 @@
     patient_key: String,
     prescriptions:  [{type: Schema.Types.ObjectId, ref: "Prescription"}],
     confirmed: Boolean,
-    SMSpasscode: String
+    SMSpasscode: String,
+    accessToken: String,
+    accessExpiry: Date,
   }
 );
 

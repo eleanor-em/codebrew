@@ -22,6 +22,7 @@ app.use(bodyparser.urlencoded({extended: true}));
 
 // Routes set up
 const routes = require('./routes/generalRoutes');
+app.use()
 
 app.use('/', routes);
 

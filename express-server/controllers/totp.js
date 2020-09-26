@@ -67,21 +67,4 @@ async function totp(key, opts = {
     });
 }
 
-function useTOTP(req, res) {
-
-    Patient.find({phone: req.body.phone}, function(err, docs) {
-        if (err) {
-            console.log(err);
-        } else {
-            if (docs.length === 0) {
-                res.send({status: false})
-            } else {
-                let key = docs[0].patient_key;
-                let otp = totp(key);
-                res.send({otp: otp, status: true})
-            }
-        }
-    })
-}
-
-module.exports = {useTOTP: useTOTP};
+module.exports = {totp};
