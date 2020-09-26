@@ -4,9 +4,8 @@
  * component
  */
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './App.css';
-import PatientOTP from './pages/PatientOTP';
 import AuthenticatedApp from './AuthenticatedApp';
 import UnauthenticatedApp from './UnauthenticatedApp';
 
@@ -21,11 +20,12 @@ import UnauthenticatedApp from './UnauthenticatedApp';
 //     </div>
 //   );
 // }
-function App(props) {
-    // const [loggedIn, setLoggedIn] = useState(false);
-    // const [token, setToken] = useState('');
-    const [loggedIn, setLoggedIn] = useState(true);
-    const [token, setToken] = useState('f241bdf92eb03f197ee297393ee482714be9c2c2e501bc81c8dd5d90817851ac');
+function App() {
+    // const [loggedIn, setLoggedIn] = React.useState(false);
+    // const [token, setToken] = React.useState('');
+    const [email, setEmail] = React.useState('');
+    const [loggedIn, setLoggedIn] = React.useState(true);
+    const [token, setToken] = React.useState('f241bdf92eb03f197ee297393ee482714be9c2c2e501bc81c8dd5d90817851ac');
 
     function logout() {
         setToken('');
@@ -33,12 +33,12 @@ function App(props) {
     }
 
     if (loggedIn) {
-        return <AuthenticatedApp sessionToken={token} logout={logout} />;
+        return <AuthenticatedApp sessionToken={token} logout={logout} email={email}/>;
     } else {
         return <UnauthenticatedApp receiveToken={token => {
             setLoggedIn(true);
             setToken(token);
-        }}/>;
+        }} setEmail={setEmail}/>;
     }
 }
 

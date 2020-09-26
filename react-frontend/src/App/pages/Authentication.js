@@ -21,6 +21,7 @@ function Authentication(props) {
             console.log(data)
             if (data.status) {
                 console.log(props.receiveToken);
+                props.setEmail(email);
                 props.receiveToken(data.sessionToken);
             }
         });
