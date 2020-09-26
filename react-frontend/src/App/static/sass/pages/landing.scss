@@ -1,0 +1,165 @@
+@import "../abstracts/variables.scss";
+$main-blue: #6A7EAF;
+$title-font:'parisienne';
+$text-font:'San Pro';
+
+.banner-section{
+    background: url("/images/banner-family-adventures04.jpg") no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 60vh;
+    background-position:top;
+
+
+    .title{
+        margin-top: 20px;
+        font-weight: bolder;
+        font-family: $title-font;
+        font-size:80px;
+    }
+
+    .slogan{
+        font-family:$title-font;
+        font-weight: initial;
+    }
+}
+
+
+.about-us-section{
+    width: 100%;
+    margin: 20px 0px;
+    .us-info{
+        padding: 1em 4em;
+    }
+
+    .join-us{
+        border-width: 100px;
+        background: $main-blue;
+        font-size:15px;
+        font-weight: bolder;
+        color:black;
+        padding:8px;
+        font-family: $text-font;
+    }
+
+    
+    .join-us:hover {
+        color:white;
+    }
+
+}
+
+.normal-text{
+    font-family: $text-font;
+}
+
+.section-title{
+    font-weight: bolder;
+    font-family:$text-font;
+}
+
+
+.features-section{
+    background-color: $background-blue;
+    padding: 2em;
+
+    .features-container{
+        width: 100%;
+        padding-right: 150px;
+        padding-left: 150px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .features{
+        box-sizing: border-box;
+    }
+
+    .features-images{
+        border-radius: 5%;
+        padding-bottom: 10px;
+    }
+
+    .column {
+        float: left;
+        width: 33.33%;
+        padding: 20px;
+      }
+      
+      /* Clearfix (clear floats) */
+      .row::after {
+        content: "";
+        clear: both;
+        display: table;
+      }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+ .third-section{
+    background-color: $main-blue;
+  }
+  
+
+
+
+
+  /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+  @media screen and (max-width: 500px) {
+
+    .banner-section{
+        .title{
+            margin-top: 40px;
+            font-size:30px;
+        }
+        .slogan{
+            font-size:20px;
+        }
+    }
+
+    .about-us-section{
+        background: none;
+        .us-info{
+            padding: 1em 2em;
+        }
+        .family-img{
+            display: none;
+        }
+    }
+
+    .features-section{
+
+        .column {
+            width: 100%;
+          }
+
+        .features-container{
+            width: 100%;
+            padding-right: 10px;
+            padding-left: 10px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+    
+    }
+  
+    
+  }
+
+  @font-face {
+    font-family: 'parisienne';
+    src: url('/fonts/parisienne/parisienne-regular.ttf')  format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    display: block;
+}
+  

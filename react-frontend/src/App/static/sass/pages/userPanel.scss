@@ -1,0 +1,42 @@
+@import '../vendors/bootstrap.scss';
+@import '../components/button.scss';
+@import '../components/icon.scss';
+
+.post-container {
+    position:relative;
+
+    border: {
+        color: #dddddd;
+        style: solid;
+        width: thin;
+        radius: 20px;
+    }
+
+    #post-form {
+        width: 100%;
+
+        .post-content {
+            width: 100%;
+
+            .image-preview {
+                width: 100%;
+
+                img {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    #description {
+        border: none;
+    }
+
+    .post-info-section {
+        display: inline-block;
+
+        .post-info {
+            display: inline-block;
+        }
+    }
+}

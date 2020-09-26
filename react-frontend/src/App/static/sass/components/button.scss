@@ -1,0 +1,27 @@
+@import "../abstracts/variables.scss";
+
+.button {
+    font-size:16px;
+    font-weight: bold;
+    outline:none;
+    font-family:'Segoe UI';
+    border: none;
+    padding: {
+        left: 32px;
+        right: 32px;
+        top: 4px;
+        bottom: 4px;
+    }
+}
+
+.button:focus {
+    outline: none;
+}
+
+.button-round {
+    border-radius: 30px;
+}
+
+.button-green {
+    background-color: $btn-green;
+}

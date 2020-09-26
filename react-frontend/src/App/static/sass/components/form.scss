@@ -1,0 +1,43 @@
+.form-center {
+    height: inherit;
+
+    .form-logo img {
+        width: 100px;
+        height: 100px;
+        margin-left: 20px;
+    }
+    
+    .modal-dialog {
+        margin: 0 auto;
+
+        .modal-content{
+            opacity: .86;
+            background-color:#E8E6E6;
+            border-radius: 40px;
+        }
+    }
+
+    .form-group {
+        
+        label {
+            font-family:'Segoe UI';
+            font-weight: bold;
+        }
+
+        input {
+            border:none;
+            height: 30px;
+            padding-left: 10px;
+            font-family:'Segoe UI';
+        }
+    }
+
+    .form-switcher {
+        color: black;
+    }
+
+    .form-switcher:hover {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+}
