@@ -7,6 +7,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import PatientOTP from './pages/PatientOTP';
+import PatientPrescription from './pages/PatientPrescription';
 import AuthenticatedApp from './AuthenticatedApp';
 import UnauthenticatedApp from './UnauthenticatedApp';
 
@@ -20,6 +21,16 @@ import UnauthenticatedApp from './UnauthenticatedApp';
 //       </header>
 //     </div>
 //   );
+// }
+
+// function App (){
+//     return (
+//        <div className="App">
+//          <header className="App-header">
+//            <PatientPrescription />
+//          </header>
+//       </div>
+//     )
 // }
 function App(props) {
     // const [loggedIn, setLoggedIn] = useState(false);
