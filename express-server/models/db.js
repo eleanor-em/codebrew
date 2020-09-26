@@ -8,10 +8,10 @@ require('./medicalProfessional');
 require('./patient');
 require('./prescription');
 
-const dbURL = "mongodb://eleanorm.info:27420";
+const dbURL = "mongodb+srv://dbUser:healthhack2020@cluster0.en946.mongodb.net/prescript?retryWrites=true&w=majority";
 
 const options = {
-    dbName: "Bridge",
+    dbName: "prescript",
     useNewUrlParser: true,
     useCreateIndex: true
 };
