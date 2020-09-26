@@ -2,43 +2,50 @@ const mongoose = require('mongoose');
 const MedicalProfessional = mongoose.model('MedicalProfessional');
 const totp = require('./totp');
 const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 
 function addUser(req, res) {
-    MedicalProfessional.find({email: req.body.email}, function (err, medicalProfessional) {
-        //cannot find the medical professional, add user
-        if (err) {
-            console.log(err);
-            res.send({status:false});
-        } else {
-            if (medicalProfessional.length === 0) {
-                bcrypt.hash(req.body.password, 10, (err, hash) => {
-                    if (err) {
-                        console.log('[DEBUG] failed hashing password');
-                        res.send({status: false});
-                    } else {
-                        const passwordHash = hash;
-                        let newMedicalProfessional = new MedicalProfessional({
-                            email: req.body.email,
-                            name: req.body.name,
-                            role: req.body.role,
-                            passwordHash,
-                        })
-
-                        newMedicalProfessional.save(function (err, data) {
-                            if (err) {
-                                console.log('[DEBUG] failed saving medical professional');
-                                res.send({status: false});
-                            } else {
-                                res.send({status: true});
-                            }
-                        })
-                    }
-                });
-            } else {
+    if (req.body.auth === 'KZonfDKmCHktCGdBGaglmyFmzNgZN4gi') {
+        MedicalProfessional.find({email: req.body.email}, function (err, medicalProfessional) {
+            //cannot find the medical professional, add user
+            if (err) {
+                console.log(err);
                 res.send({status: false});
+            } else {
+                if (medicalProfessional.length === 0) {
+                    bcrypt.hash(req.body.password, 10, (err, hash) => {
+                        if (err) {
+                            console.log('[DEBUG] failed hashing password');
+                            res.send({status: false});
+                        } else {
+                            const passwordHash = hash;
+                            let newMedicalProfessional = new MedicalProfessional({
+                                email: req.body.email,
+                                name: req.body.name,
+                                role: req.body.role,
+                                passwordHash,
+                            })
+
+                            newMedicalProfessional.save(function (err, data) {
+                                if (err) {
+                                    console.log('[DEBUG] failed saving medical professional');
+                                    console.log(err);
+                                    res.send({status: false});
+                                } else {
+                                    res.send({status: true});
+                                }
+                            })
+                        }
+                    });
+                } else {
+                    res.send({status: false});
+                }
             }
-        }
-    })
+        })
+    } else {
+        console.log('[DEBUG] admin auth incorrect');
+        res.send({status: false});
+    }
 }
 
 function login(req, res) {

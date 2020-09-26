@@ -13,6 +13,12 @@ const app = express();
 
 app.use(cors())
 
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,ContentType');
+    next();
+})
 
 // Database setup
 const db = require('./models/db');
@@ -22,7 +28,6 @@ app.use(bodyparser.urlencoded({extended: true}));
 
 // Routes set up
 const routes = require('./routes/generalRoutes');
-app.use()
 
 app.use('/', routes);
 

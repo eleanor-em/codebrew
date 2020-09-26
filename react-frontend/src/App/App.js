@@ -22,49 +22,16 @@ import UnauthenticatedApp from './UnauthenticatedApp';
 //   );
 // }
 function App(props) {
-
-    // const loggedIn = false;
-    
-    const [loading, setLoading] = useState(true);
     const [loggedIn, setLoggedIn] = useState(false);
-    const [user, setUser] = useState({});
-
-    useEffect(() => {
-        handleAuthentication();
-    });
-
-    // If the user logs in with correct information, fetch the user data,
-    // and switch from UnauthenticatedApp component to AuthenticatedApp 
-    // component to be rendered.
-    function handleAuthentication() {
-        fetch('http://localhost:5000/validateLogin')
-        .then(res => res.json())
-        .then(data => {
-            if (data.result.isLoggedIn) {
-                setLoggedIn(true);
-
-                fetch('/user')
-                .then(res => res.json())
-                .then(user => {
-                    setUser(user);
-                    setLoading(false);
-                })
-            } else {
-                setLoading(false);
-            }
-        });
-    }
-
-    /* if (loading) {
-        return <div>Loading...</div>
-    } */
-
-    // return <UnauthenticatedApp />;
+    const [token, setToken] = useState('');
 
     if (loggedIn) {
-        return <AuthenticatedApp user={user} />;
+        return <AuthenticatedApp user={token} />;
     } else {
-        return <UnauthenticatedApp />;
+        return <UnauthenticatedApp receiveToken={token => {
+            setLoggedIn(true);
+            setToken(token);
+        }}/>;
     }
 }
 

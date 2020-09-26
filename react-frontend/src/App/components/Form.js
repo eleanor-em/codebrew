@@ -21,26 +21,28 @@ function FormCenter(props) {
 }
 
 function LoginForm(props) {
+    const [email, setEmail] = React.useState('');
+    const [password, setPassword] = React.useState('');
+
     return (
         <FormCenter>
-            <Form className="col-12 login-form" method="POST" action="/validateLogin">
+            <Form className="col-12 login-form" action="" method="POST" onSubmit={e => {
+                e.preventDefault();
+                props.handleClickLogin(email, password);
+            }}>
                 <div className="form-group">
                     <label>Email</label>
-                    <input type='email' name='email' id ='email' className="form-control" required/>
+                    <input type='email' name='email' id ='email' className="form-control" required
+                     onChange={event => setEmail(event.target.value)}/>
                 </div>
                 <div className="form-group">
                     <label>Password</label>
                     <input type='password' name='password' id ='password' className="form-control" pattern = ".{6,}"
-                    title = "Six or more characters" required/>
+                    title = "Six or more characters" onChange={event => setPassword(event.target.value)} required/>
                 </div>
                 <div className="col-12 text-center">
                     <button className="button button-round button-green" type="submit" onClick={props.login}>Login</button>
                 </div>
-                {/* <div className="form-group text-center">
-                    <span className="form-switcher" onClick={props.register}>Register</span>
-                    <span> | </span>
-                    <a className="form-switcher" href="/forgotPassword">Forgot your Password?</a>
-                </div> */}
             </Form>
         </FormCenter>
     );

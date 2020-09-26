@@ -5,40 +5,30 @@ import { LoginForm} from '../components/Form';
 import '../static/sass/pages/authentication.scss';
 
 function Authentication(props) {
-
-    // const [ displayLogin, setDisplayLogin ] = useState(true);
-    // const [loading, setLoading] = useState(true);
-    const [loggedIn, setLoggedIn] = useState(false);
-    const [user, setUser] = useState({});
-
-    /* function handleClickLogin() {
-        setDisplayLogin(true);
-    } */
-
-    function handleClickLogin() {
-        fetch('http://localhost:5000/validateLogin')
+    function handleClickLogin(email, password) {
+        console.log('logging in as: ' + email);
+        fetch('http://localhost:5000/login', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            redirect: 'follow',
+            body: JSON.stringify({ email, password })
+        })
         .then(res => res.json())
         .then(data => {
-            debugger
             console.log(data)
-            if (data.result.isLoggedIn) {
-                setLoggedIn(true);
-
-                fetch('/user')
-                .then(res => res.json())
-                .then(user => {
-                    setUser(user);
-                    // setLoading(false);
-                })
-            } else {
-                // setLoading(false);
+            if (data.status) {
+                console.log(props.receiveToken);
+                props.receiveToken(data.sessionToken);
             }
         });
     }
 
     return (
         <div id="main-page-background">       
-            { <LoginForm login={handleClickLogin}/> }
+            { <LoginForm handleClickLogin={handleClickLogin}/> }
         </div>
     );
 }

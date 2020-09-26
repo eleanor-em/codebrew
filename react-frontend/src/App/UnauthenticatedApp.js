@@ -5,13 +5,10 @@
     import { Route, Switch } from 'react-router-dom';
     import Authentication from './pages/Authentication';
     
-    function UnauthenticatedApp() {
-    
+    function UnauthenticatedApp(props) {
         return (
-            <Switch>
-                <Route exact path="/" component={ Authentication }/>
-            </Switch>
-        )
+            <Authentication receiveToken={token => props.receiveToken(token)}/>
+        );
     }
     
     export default UnauthenticatedApp;
