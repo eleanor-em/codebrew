@@ -16,25 +16,33 @@ export default function PrescriptionView(props: PrescriptionViewProps) {
 
     return (
         <View style={styles.container}>
-            <View style={styles.inner}>
-                <Text style={styles.title}>{props.prescription.drug.name}</Text>
-                <Text style={{...styles.subtitle, color}}>Repeat {props.prescription.currentRepeat}/{props.prescription.totalRepeats}</Text>
+            <View style={styles.top}>
+                <View style={styles.inner}>
+                    <Text style={styles.title}>{props.prescription.drug.name}</Text>
+                    <Text style={{...styles.subtitle, color}}>Repeat {props.prescription.currentRepeat}/{props.prescription.totalRepeats}</Text>
+
+                </View>
+                <View style={styles.expiryDate}>
+                    <Text style={styles.subtitle}>Expires {props.prescription.expiry.toDateString()}</Text>
+                </View>
+            </View>
+            <View style={styles.top}>
                 <Text style={styles.inner}>Take {props.prescription.numberOfPills} {props.prescription.frequency}{
                     props.prescription.duration != '-' && (' for ' + props.prescription.duration)
                 }.</Text>
-            </View>
-            <View style={styles.expiryDate}>
-                <Text style={styles.subtitle}>Expires {props.prescription.expiry.toDateString()}</Text>
             </View>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
+    top: {
+        flexDirection: 'row',
+    },
     container: {
         textAlign: 'left',
         alignContent: 'space-between',
-        flexDirection: 'row',
+        flexDirection: 'column',
         width: '100%',
         padding: 5,
         borderBottomColor: 'gray',

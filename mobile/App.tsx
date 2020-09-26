@@ -32,6 +32,7 @@ export default function App() {
 
     const [prescriptions, setPrescriptions] = React.useState([] as Prescription[]);
 
+
     // Check if there is a PIN in storage
     React.useEffect(() => {
         async function checkForPin() {
@@ -43,6 +44,18 @@ export default function App() {
                 setPin(pin);
             } else {
                 setHasPin(false);
+            }
+
+            // ...and look for cached prescriptions just in case
+            const prescriptions = await SecureStore.getItemAsync('prescriptions');
+            if (prescriptions != null) {
+                // this is kind of dumb, JSON.parse can't parse dates automatically
+                const parsed = JSON.parse(prescriptions);
+                for (const prescription of parsed) {
+                    prescription.expiry = new Date(prescription.expiry);
+                }
+
+                setPrescriptions(parsed);
             }
         }
 
@@ -90,6 +103,8 @@ export default function App() {
             const { status, prescriptions } = await Api.getPrescriptions(phoneNumber, patientKey);
             if (status) {
                 setPrescriptions(prescriptions);
+                console.log(JSON.stringify(prescriptions));
+                await SecureStore.setItemAsync('prescriptions', JSON.stringify(prescriptions));
             } else {
                 alert('Failed to retrieve your prescriptions. Is your internet disconnected?');
             }
