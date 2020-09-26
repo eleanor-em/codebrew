@@ -2,12 +2,12 @@
   const { Schema } = mongoose;
 
   const PatientSchema = new mongoose.Schema({
-    phone:  {type: Number, required: true, unique: true},
+    phone:  {type: String, required: true, unique: true},
     name: String,
     patient_key: String,
     prescriptions:  [{type: Schema.Types.ObjectId, ref: "Prescription"}],
     confirmed: Boolean,
-    SMSpasscode: Number
+    SMSpasscode: String
   }
 );
 

@@ -11,10 +11,11 @@ interface CurrentPrescriptionsScreenProps {
 }
 
 export default function CurrentPrescriptionsScreen(props: CurrentPrescriptionsScreenProps) {
+    let count = 0;
     return (
         <View style={styles.container}>
             <FlatList
-                data={props.prescriptions.map(prescription => { return {...prescription, key: prescription.drugName + prescription.expiry} })}
+                data={props.prescriptions.map(prescription => { return {...prescription, key: (count += 1).toString()} })}
                 renderItem={({item}) => <PrescriptionView prescription={item}/>}
             />
         </View>

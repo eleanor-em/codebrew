@@ -2,18 +2,23 @@ import React from 'react';
 import {Text, View} from '../components/Themed';
 import {Prescription} from "../types";
 import {StyleSheet} from "react-native";
+import {config} from "../config";
 
 interface PrescriptionViewProps {
     prescription: Prescription
 }
 
 export default function PrescriptionView(props: PrescriptionViewProps) {
-    console.log(props.prescription);
+    let color = '#ffffff';
+    if (props.prescription.totalRepeats == props.prescription.currentRepeat) {
+        color = config.warningColour;
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.inner}>
                 <Text style={styles.title}>{props.prescription.drugName}</Text>
-                <Text style={styles.subtitle}>Repeat {props.prescription.currentRepeat}/{props.prescription.totalRepeats}</Text>
+                <Text style={{...styles.subtitle, color}}>Repeat {props.prescription.currentRepeat}/{props.prescription.totalRepeats}</Text>
                 <Text>Take {props.prescription.numberOfPills} {props.prescription.frequency}{
                     props.prescription.duration && (' ' + props.prescription.duration)
                 }.</Text>
