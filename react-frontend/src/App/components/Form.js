@@ -34,7 +34,7 @@ function LoginForm(props) {
                     title = "Six or more characters" required/>
                 </div>
                 <div className="col-12 text-center">
-                    <button className="button button-round button-green" type="submit">Login</button>
+                    <button className="button button-round button-green" type="submit" onClick={props.login}>Login</button>
                 </div>
                 {/* <div className="form-group text-center">
                     <span className="form-switcher" onClick={props.register}>Register</span>

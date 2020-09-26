@@ -6,19 +6,39 @@ import '../static/sass/pages/authentication.scss';
 
 function Authentication(props) {
 
-    const [ displayLogin, setDisplayLogin ] = useState(true);
+    // const [ displayLogin, setDisplayLogin ] = useState(true);
+    // const [loading, setLoading] = useState(true);
+    const [loggedIn, setLoggedIn] = useState(false);
+    const [user, setUser] = useState({});
 
     /* function handleClickLogin() {
         setDisplayLogin(true);
     } */
 
-    function handleClickRegister() {
-        setDisplayLogin(false);
+    function handleClickLogin() {
+        fetch('http://localhost:5000/validateLogin')
+        .then(res => res.json())
+        .then(data => {
+            debugger
+            console.log(data)
+            if (data.result.isLoggedIn) {
+                setLoggedIn(true);
+
+                fetch('/user')
+                .then(res => res.json())
+                .then(user => {
+                    setUser(user);
+                    // setLoading(false);
+                })
+            } else {
+                // setLoading(false);
+            }
+        });
     }
 
     return (
         <div id="main-page-background">       
-            { <LoginForm register={handleClickRegister}/> }
+            { <LoginForm login={handleClickLogin}/> }
         </div>
     );
 }
