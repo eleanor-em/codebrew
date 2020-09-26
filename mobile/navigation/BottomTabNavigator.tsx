@@ -19,6 +19,7 @@ const AppContext = React.createContext({
         phoneNumber: '',
     },
     prescriptions: [] as Prescription[],
+    detailedPrescription: null as Prescription | null,
 });
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();

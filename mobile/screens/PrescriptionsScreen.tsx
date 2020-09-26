@@ -37,14 +37,6 @@ export default function PrescriptionsScreen(props: PrescriptionsScreenProps) {
                     onPress={() => props.navigation.navigate('LastRepeatScreen')}
                 />
             </View>
-            <Button onPress={() => {
-                async function doDeletion() {
-                    await SecureStore.deleteItemAsync('pin');
-                    await SecureStore.deleteItemAsync('name');
-                    await SecureStore.deleteItemAsync('patientKey');
-                }
-                doDeletion();
-            }} title="[DEBUG] Delete Patient Data"/>
         </View>
     );
 }

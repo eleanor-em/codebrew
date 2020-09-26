@@ -62,6 +62,7 @@ export default function App() {
         checkForPin();
     }, []);
 
+
     // Callback for when the user first registers
     function onRegistered(name: string, phoneNumber: string, patientKey: string) {
         setHasPin(true);
@@ -106,7 +107,7 @@ export default function App() {
                 console.log(JSON.stringify(prescriptions));
                 await SecureStore.setItemAsync('prescriptions', JSON.stringify(prescriptions));
             } else {
-                alert('Failed to retrieve your prescriptions. Is your internet disconnected?');
+                alert('Failed to retrieve your prescriptions.');
             }
         }
         getData();

@@ -20,7 +20,6 @@ export default function PrescriptionView(props: PrescriptionViewProps) {
                 <View style={styles.inner}>
                     <Text style={styles.title}>{props.prescription.drug.name}</Text>
                     <Text style={{...styles.subtitle, color}}>Repeat {props.prescription.currentRepeat}/{props.prescription.totalRepeats}</Text>
-
                 </View>
                 <View style={styles.expiryDate}>
                     <Text style={styles.subtitle}>Expires {props.prescription.expiry.toDateString()}</Text>
