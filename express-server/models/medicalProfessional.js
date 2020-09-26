@@ -11,7 +11,7 @@ const MedicalProfessionalSchema = new mongoose.Schema({
         required: true
     },
     email: {type: String, required: true},
-    passwordHash: {type: String, required: true}
+    password: {type: String, required: true}
 });
 
 // Hashing a password before saving it to the database
