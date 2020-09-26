@@ -1,0 +1,10 @@
+@import "../abstracts/variables.scss";
+
+.text {
+    color: $btn-organge;
+    display: inline-block;
+}
+
+.text:hover {
+    cursor: pointer;
+}

@@ -38,7 +38,7 @@ MedicalProfessionalSchema.statics.authenticate = (email, passwordHash, cb) => {
                 err.status = 401;
                 return cb(err);
             }
-            bcrypt.compare(password, user.passwordHash, (err, result) => {
+            bcrypt.compare(passwordHash, user.passwordHash, (err, result) => {
                 if (result == true) {
                     return cb(null, user);
                 } else {

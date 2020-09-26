@@ -1,0 +1,20 @@
+@import "../vendors/bootstrap.scss";
+@import "../components/button.scss";
+@import "../components/form.scss";
+
+#main-page-background {
+    background-size: cover;
+    background-image: url(../../images/lbg1.jpg);
+    background-attachment: fixed;
+    min-height: 100%;
+    width: 100%;
+}
+
+.login-form {
+    padding: 0px 18px 30px;
+}
+
+.arrow-image{
+    position: absolute;
+}
+

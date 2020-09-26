@@ -1,0 +1,35 @@
+@import "../abstracts/variables.scss";
+
+
+.nav-background{
+    background-color: $background-blue;
+}
+
+.nav-item{
+    font-size: 25px;
+    color: black !important;
+    font-weight: bolder;
+}
+
+.logo img {
+    width: 6vw;
+    height: 6vw;
+}
+
+.search-btn{
+    background: url(/images/search.svg) no-repeat;
+    width: 2.5vw;
+    height: 2vw;
+    border:0;
+}
+
+.search-bar{
+    border:0;
+}
+
+@media screen and (max-width: 769px){
+    
+    .search-btn{
+        display: none;
+    }
+}

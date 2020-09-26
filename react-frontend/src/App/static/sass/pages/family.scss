@@ -1,0 +1,87 @@
+.groupName {
+    margin-top: 1em; 
+    margin-left: 30px; 
+    color:#3C3B3B;
+    font-family: 'Segoe UI';
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.groupAvatar {
+    width: 50%;
+    border-radius: 5%;
+  }
+
+.groupDescription {
+    margin-left: 30px; 
+    color:#3C3B3B;
+    font-family: 'Segoe UI';
+}
+
+.space {
+    margin-top: 2em;
+}
+
+/******************************************************************************/
+@media only screen and (max-width: 600px) {
+  .tag {
+    color:#3C3B3B;
+    font-family: 'Segoe UI';
+    font-weight: bolder;
+  }
+  .content {
+    background-color: #F2B663;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 00;
+  }
+  .groupAvatar {
+    width: 80%;
+    border-radius: 5%;
+  }
+
+  .AvatarImg {
+    z-index: 1;
+    width: 100%;
+  }
+
+  .background{
+        background-image: url(../../images/low-op-background-1.jpg);
+        background-repeat: no-repeat;
+        background-size: 700px 600px;
+    
+    }
+}
+
+
+
+@media only screen and (min-width: 601px) {
+    .tag{
+        color:#3C3B3B;
+        font-family: 'Segoe UI';
+        font-weight: bolder;
+    }
+
+    .content{
+        background-color: #F2B663;
+        border-radius: 10px;
+        font-size: 20px;
+        font-weight: 500;
+    }
+
+    .groupAvatar {
+        width: 100%;
+        border-radius: 5%;
+    }
+
+    .AvatarImg {
+        width: 70%;
+    }
+
+    .background{
+        background-image: url(../../images/low-op-background-1.jpg);
+        background-repeat: no-repeat;
+        background-size: 100% 400px; 
+    }
+
+}
