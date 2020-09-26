@@ -6,13 +6,6 @@
 
 import React from 'react';
 import './App.css';
-<<<<<<< HEAD
-import PatientOTP from './pages/PatientOTP';
-import PatientPrescription from './pages/PatientPrescription';
-||||||| merged common ancestors
-import PatientOTP from './pages/PatientOTP';
-=======
->>>>>>> 2318f1ed787fb0bfb1d27bb496a9a5570c8f8c4b
 import AuthenticatedApp from './AuthenticatedApp';
 import UnauthenticatedApp from './UnauthenticatedApp';
 import AdminPage from "./pages/AdminPage";
