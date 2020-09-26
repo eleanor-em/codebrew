@@ -5,7 +5,7 @@ const PrescriptionSchema = new mongoose.Schema(
     {
         drug: {type: Schema.Types.ObjectId, ref: "Drug", required:true},
         numberOfPills: {type: Number, required:true},
-        frequency: {type: Number, required:true},
+        frequency: {type: String, required:true},
         duration: {type: String, required: true},
         prescriber: {type: Schema.Types.ObjectId, ref:"MedicalProfessional", required: true},
         totalRepeats: {type: Number, required: true},

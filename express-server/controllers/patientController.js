@@ -16,12 +16,13 @@ function registerPatient(req, res) {
         } else {
           res.send({status: true});
         }
-        
       })
-      } else{
-        res.send({status: false});
-      }
+    } else{
+      res.send({status: false});
+    }
   })
 }
 
-module.exports = registerPatient
+module.exports = {
+  registerPatient: registerPatient
+}
