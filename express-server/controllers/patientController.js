@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Prescription = require('../models/prescription');
 const Patient = mongoose.model('Patient');
 
 function registerPatient(req, res) {
@@ -28,11 +29,40 @@ function registerPatient(req, res) {
 }
 
 function confirmPhoneNumber(req, res) {
-  Patient.find({phone: req.body.phone, SMSpasscode: req.body.SMSpasscode}, function(err, patient) {
-    
+  Patient.find({phone: req.body.phone, SMSpasscode: req.body.SMSpasscode}, function(err, docs) {
+    if (err) {
+      console.log(err);
+    } else {
+      if (docs.length === 0) {
+        res.send({status: false})
+      } else {
+        res.send({status: true, patient_key: docs[0].patient_key})
+      }
+    }
   }) 
 }
 
+
+
+function getUserPrescriptions(req, res) {
+  Patient.find({phone: req.body.phone, patient_key: req.body.patient_key})
+    .populate('prescriptions')
+    .exec(function(err, docs) {
+      if(err) {
+        console.log(err);
+      } else {
+        if(docs.length === 0) {
+          res.send({status: false})
+        } else {
+          res.send({status: true, prescriptions: docs[0].prescriptions})
+        }
+      }
+    })
+}
+
+
 module.exports = {
-  registerPatient: registerPatient
+  registerPatient: registerPatient,
+  confirmPhoneNumber: confirmPhoneNumber,
+  getUserPrescriptions: getUserPrescriptions
 }
