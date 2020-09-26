@@ -1,4 +1,8 @@
 const crypto = require('crypto');
+const mongoose = require('mongoose');
+const { userInfo } = require('os');
+// const { default: PatientOTP } = require('../../react-frontend/src/App/pages/PatientOTP');
+const Patient = mongoose.model('Patient');
 
 // From https://github.com/jhermsmeier/node-hotp/blob/master/lib/hotp.js with minor edits
 function zeropad(value, digits) {
@@ -63,4 +67,21 @@ async function totp(key, opts = {
     });
 }
 
-module.exports = totp
+function useTOTP(req, res) {
+
+    Patient.find({phone: req.body.phone}, function(err, docs) {
+        if (err) {
+            console.log(err);
+        } else {
+            if (docs.length === 0) {
+                res.send({status: false})
+            } else {
+                let key = docs[0].patient_key;
+                let otp = totp(key);
+                res.send({otp: otp, status: true})
+            }
+        }
+    })
+}
+
+module.exports = {useTOTP: useTOTP};

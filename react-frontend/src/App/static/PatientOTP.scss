@@ -1,0 +1,48 @@
+// #pPhone {
+	
+// }
+
+.PhoneNumberField {
+	margin-bottom: 50px;
+}
+
+#btnPhone {
+
+	
+	background-color: lightgrey;
+	border: none;
+	// color: white;
+	padding: 5px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	// margin: 4px 2px;
+	// cursor: pointer;
+	color: black;
+
+}
+
+$char-w: 1ch;
+$gap: .5*$char-w;
+$n-char: 6;
+$in-w: $n-char*($char-w + $gap);
+
+#pOTP {
+	display: block;
+	margin: 10px auto;
+	border: none;
+	padding: 0;
+	width: $in-w;
+	background: repeating-linear-gradient(90deg, 
+		dimgrey 0, dimgrey $char-w, 
+		transparent 0, transparent $char-w + $gap) 
+		0 100%/ #{$in-w - $gap} 2px no-repeat;
+	font: 5ch droid sans mono, consolas, monospace;
+	letter-spacing: $gap;
+	
+	&:focus {
+		outline: none;
+		color: #81d4cb;
+	}
+}
