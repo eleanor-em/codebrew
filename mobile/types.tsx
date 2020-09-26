@@ -22,10 +22,19 @@ export interface PatientData {
     name: string,
     phoneNumber: string,
     patientKey: string,
-};
+}
 
 export interface PatientDataProps {
     patientData: PatientData
-};
+}
 
-export
+export interface Prescription {
+    drugName: string,
+    numberOfPills: number,
+    frequency: string,
+    duration: string,
+    prescriber: string,
+    currentRepeat: number,
+    totalRepeats: number,
+    expiry: Date,
+}

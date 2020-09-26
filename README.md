@@ -23,7 +23,7 @@ To install Expo:
 1. `npm i --global expo`
 2. `npm i --global expo-cli`
  
-To run: `npm start` (in `mobile/`)
+To run: `expo start` (in `mobile/`)
 
 ### Code overview
 - Focus on `App.tsx`, `api.ts`, `utils.ts`, `screens/`, and `components/`.

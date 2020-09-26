@@ -14,7 +14,6 @@ export default function RegisterForm(props: RegisterFormProps) {
         <Formik
             initialValues={{ phoneNumber: '', name: '' }}
             onSubmit={values => {
-                console.log('submit: ' + JSON.stringify(values));
                 props.onPatientData(values.phoneNumber, values.name);
             }}
             validate={values => {
@@ -25,7 +24,6 @@ export default function RegisterForm(props: RegisterFormProps) {
 
                 if (!isNumber(values.phoneNumber) || values.phoneNumber.length != 10) {
                     errors.phoneNumber = 'invalid phone number';
-                    console.log('invalid phone number: ' + values.phoneNumber);
                 }
 
                 return errors;
