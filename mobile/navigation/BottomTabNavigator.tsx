@@ -11,6 +11,8 @@ import {BottomTabParamList, PrescriptionsParamList, AuthorisationParamList} from
 import LastRepeatScreen from "../screens/LastRepeatScreen";
 import CurrentPrescriptionsScreen from "../screens/CurrentPrescriptionsScreen";
 
+import {AppContext} from './index';
+
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator() {
@@ -72,12 +74,20 @@ function PrescriptionsNavigator() {
 
 const AuthorisationStack = createStackNavigator<AuthorisationParamList>();
 
+function AuthorisationContextWrapper() {
+    return (
+        <AppContext.Consumer>
+            {value => (<AuthorisationScreen patientData={value}/>)}
+        </AppContext.Consumer>
+    );
+}
+
 function AuthorisationNavigator() {
     return (
         <AuthorisationStack.Navigator>
             <AuthorisationStack.Screen
                 name="AuthorisationScreen"
-                component={AuthorisationScreen}
+                component={AuthorisationContextWrapper}
                 options={{headerTitle: 'Authorisation'}}
             />
         </AuthorisationStack.Navigator>
