@@ -1,7 +1,7 @@
   import mongoose from 'mongoose';
   const { Schema } = mongoose;
 
-  const patientSchema = new Schema({
+  const PatientSchema = new Schema({
     phone:  {type: Number, required: true, unique: true},
     name: String,
     patient_key: String,
@@ -11,4 +11,5 @@
   }
 );
 
-  
+const Patient = mongoose.model('Patient', PatientSchema);
+module.exports = Patient;
