@@ -15,6 +15,7 @@ function App() {
     const [token, setToken] = React.useState('');
     const [showAdmin, setShowAdmin] = React.useState(false);
     const [email, setEmail] = React.useState('');
+    const [role, setRole] = React.useState('');
 
     function logout() {
         setToken('');
@@ -29,12 +30,12 @@ function App() {
     if (showAdmin) {
         return <AdminPage onBack={() => setShowAdmin(false)}/>
     } else if (loggedIn) {
-        return <AuthenticatedApp sessionToken={token} logout={logout} email={email}/>;
+        return <AuthenticatedApp sessionToken={token} logout={logout} email={email} role={role}/>;
     } else {
         return <UnauthenticatedApp onShowAdmin={onShowAdmin} receiveToken={token => {
             setLoggedIn(true);
             setToken(token);
-        }} setEmail={setEmail}/>;
+        }} setEmail={setEmail} setRole={setRole}/>;
     }
 }
 

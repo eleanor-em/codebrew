@@ -6,17 +6,13 @@ import PatientOTP from "./pages/PatientOTP";
 import PatientPrescriptions from "./pages/PatientPrescriptions";
 
 function AuthenticatedApp(props) {
-    // const [hasAccessToken, setHasAccessToken] = React.useState(false);
-    // const [accessToken, setAccessToken] = React.useState('');
-    // const [role, setRole] = React.useState('');
-    const [hasAccessToken, setHasAccessToken] = React.useState(true);
-    const [accessToken, setAccessToken] = React.useState('669b27612ceb7b61425aab0c88eec2081cdb9d0aaf570943d9507701c90a06ec');
-    const [role, setRole] = React.useState('GP');
+    const [hasAccessToken, setHasAccessToken] = React.useState(false);
+    const [accessToken, setAccessToken] = React.useState('');
 
     function receiveAccessToken(token) {
         console.log('access token: ' + token);
-        setHasAccessToken(true);
         setAccessToken(token);
+        setHasAccessToken(true);
     }
 
     function logout() {
@@ -28,7 +24,7 @@ function AuthenticatedApp(props) {
             <>
                 <div>Logged in as: {props.email}</div>
                 <div><a href="#" onClick={logout}>logout</a></div>
-                <PatientOTP logout={logout} sessionToken={props.sessionToken} receiveAccessToken={receiveAccessToken} setRole={setRole}/>
+                <PatientOTP logout={logout} sessionToken={props.sessionToken} receiveAccessToken={receiveAccessToken}/>
             </>
         );
     } else {
@@ -36,7 +32,7 @@ function AuthenticatedApp(props) {
             <>
                 <div>Logged in as: {props.email}</div>
                 <div><a href="#" onClick={logout}>logout</a></div>
-                <PatientPrescriptions role={role} onExpired={() => setHasAccessToken(false)} sessionToken={props.sessionToken} accessToken={accessToken} />
+                <PatientPrescriptions role={props.role} onExpired={() => setHasAccessToken(false)} sessionToken={props.sessionToken} accessToken={accessToken} />
             </>
         );
     }

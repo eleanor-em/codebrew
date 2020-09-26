@@ -22,7 +22,6 @@ function PatientOTP(props) {
                 console.log(data)
                 if (data.status) {
                     props.receiveAccessToken(data.token);
-                    props.setRole(data.role);
                 }
                 if (data.logout) {
                     props.logout();

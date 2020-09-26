@@ -23,6 +23,7 @@ function Authentication(props) {
                 console.log(props.receiveToken);
                 props.setEmail(email);
                 props.receiveToken(data.sessionToken);
+                props.setRole(data.role);
             }
         });
     }

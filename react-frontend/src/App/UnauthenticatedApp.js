@@ -8,7 +8,7 @@ function UnauthenticatedApp(props) {
     return (
         <>
             <a href="#" onClick={() => props.onShowAdmin()}>admin portal</a>
-            <Authentication setEmail={props.setEmail} receiveToken={token => props.receiveToken(token)}/>
+            <Authentication setRole={props.setRole} setEmail={props.setEmail} receiveToken={token => props.receiveToken(token)}/>
         </>
     );
 }

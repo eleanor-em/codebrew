@@ -1,11 +1,31 @@
 import React from 'react';
+import CreatePrescription from "./CreatePrescription";
 
 export default function PatientPrescriptions(props) {
     const [prescriptions, setPrescriptions] = React.useState([]);
+    const [drugs, setDrugs] = React.useState([]);
+    const [patient, setPatient] = React.useState([]);
+    const [dispensing, setDispensing] = React.useState(false);
 
     const {onExpired, accessToken} = props;
 
     React.useEffect(() => {
+        fetch('http://localhost:5000/allDrugs', {
+            method: 'GET',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            redirect: 'follow',
+        }).then(res => res.json())
+        .then(data => {
+            if (data.status) {
+                setDrugs(data.drugs);
+            }
+        })
+    }, []);
+
+    function fetchPrescriptions() {
         fetch('http://localhost:5000/getPrescriptions', {
             method: 'POST',
             mode: 'cors',
@@ -17,47 +37,80 @@ export default function PatientPrescriptions(props) {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
                 if (data.status) {
                     setPrescriptions(data.prescriptions);
+                    setPatient(data.patient);
                 }
                 if (data.expired) {
                     onExpired();
                 }
             });
+    }
+
+    React.useEffect(() => {
+        fetchPrescriptions();
+        window.scrollTo(0, 0);
     }, []);
+
+    function dispensePrescription(id) {
+        setDispensing(true);
+
+        fetch('http://localhost:5000/dispense', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            redirect: 'follow',
+            body: JSON.stringify({sessionToken: props.sessionToken, accessToken, prescription: id})
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status) {
+                    setDispensing(false);
+                    alert('Successfully dispensed.');
+                    fetchPrescriptions();
+                }
+                if (data.expired) {
+                    onExpired();
+                }
+            });
+    }
 
     return (
         <div>
+            <h3>Viewing prescriptions for {patient}</h3>
             <ul>
                 {prescriptions.map(prescription => {
                     return (
-                        <div>
+                        <li key={prescription._id}>
                             <div style={styles.top}>
                                 <div style={styles.inner}>
                                     <span style={styles.title}>{prescription.drug.name}</span>
+                                    <br/>
                                     <span
                                         style={styles.subtitle}>Repeat {prescription.currentRepeat}/{prescription.totalRepeats}</span>
                                 </div>
                                 <div style={styles.expiryDate}>
                                     <span
-                                        style={styles.subtitle}>Expires {prescription.expiry.toDateString()}</span>
+                                        style={styles.subtitle}>Expires {prescription.expiryDate}</span>
                                 </div>
                             </div>
                             <div style={styles.top}>
                             <span
                                 style={styles.inner}>Take {prescription.numberOfPills} {prescription.frequency}{
-                                props.prescription.duration !== '-' && (' for ' + prescription.duration)
+                                prescription.duration && (' for ' + prescription.duration)
                             }.</span>
                             </div>
-                        </div>
+                            {props.role === 'pharmacist' && (
+                                <button onClick={() => dispensePrescription(prescription._id)} disabled={dispensing}>Dispense</button>
+                            )}
+                        </li>
                     )
                 })}
             </ul>
-            {props.role && (
-                <form>
-
-                </form>
+            {props.role === 'GP' && (
+                <CreatePrescription fetchPrescriptions={fetchPrescriptions} drugs={drugs} accessToken={accessToken} sessionToken={props.sessionToken}/>
             )}
         </div>
     );
@@ -88,7 +141,6 @@ const styles = {
     },
     expiryDate: {
         flexDirection: 'column',
-        textAlign: 'right',
     },
     title: {
         fontSize: 26,

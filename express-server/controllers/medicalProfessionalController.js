@@ -68,7 +68,7 @@ function login(req, res) {
                             console.log('[DEBUG] failed to set session token');
                             res.send({status: false});
                         } else {
-                            res.send({status: true, sessionToken: user.sessionToken});
+                            res.send({status: true, sessionToken: user.sessionToken, role: user.role});
                         }
                     });
                 } else {
@@ -87,8 +87,6 @@ function accessPatient(req, res) {
             res.send({status: false, logout: true});
         } else {
             const user = data[0];
-            console.log(user.expiry.getTime());
-            console.log(Date.now());
             if (Date.now() < user.expiry.getTime()) {
                 Patient.find({phone: req.body.phone, confirmed: true})
                     .populate('prescriptions')
@@ -114,7 +112,7 @@ function accessPatient(req, res) {
                                             console.log('[DEBUG] error saving patient expiry');
                                             res.send({status: false, logout: false});
                                         } else {
-                                            res.send({status: true, token: patient.accessToken, role: user.role});
+                                            res.send({status: true, token: patient.accessToken});
                                         }
                                     })
                                 } else {
@@ -136,20 +134,26 @@ function accessPatient(req, res) {
 }
 
 function getPrescriptions(req, res) {
-    Patient.find({accessToken: req.body.accessToken}, (err, data) => {
+    Patient.find({accessToken: req.body.accessToken})
+        .populate('prescriptions')
+        .populate({
+            path: 'prescriptions',
+            populate: {path: 'drug'}
+        })
+        .exec((err, data) => {
         if (err || data.length === 0) {
             console.log('[DEBUG] error finding patient');
             res.send({status: false});
         } else {
             const patient = data[0];
             if (Date.now() < patient.accessExpiry.getTime()) {
-                res.send({status: true, prescriptions: patient.prescriptions});
+                res.send({status: true, prescriptions: patient.prescriptions, patient: patient.name});
             } else {
                 console.log('[DEBUG] patient access token expired');
                 res.send({status: false, expired: true});
             }
         }
-    })
+    });
 }
 
 module.exports = {
