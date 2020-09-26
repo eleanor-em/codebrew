@@ -15,7 +15,7 @@ app.use(cors())
 
 
 // Database setup
-// const db = require('./models/db');
+const db = require('./models/db');
 
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended: true}));

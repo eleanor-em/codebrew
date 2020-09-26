@@ -22,8 +22,10 @@ export interface PatientData {
     name: string,
     phoneNumber: string,
     patientKey: string,
-}
+};
 
 export interface PatientDataProps {
     patientData: PatientData
-}
+};
+
+export

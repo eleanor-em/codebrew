@@ -33,4 +33,3 @@ It's not too hard to figure out loosely what's going on by reading [https://reac
 - `screens/AuthorisationScreen.jsx` will be the one-time PIN flow.
 - `screens/PrescriptionsScreen.jsx` contains buttons (need to be styled properly) leading to "Current Prescriptions" as
 well as "Last Repeat". This flow can be sketched out in more detail tomorrow. 
->>>>>>> mobile
