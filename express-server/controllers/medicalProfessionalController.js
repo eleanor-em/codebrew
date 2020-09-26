@@ -11,7 +11,7 @@ function addUser(req, res) {
       console.log(err);
     } else{
       if (medicalProfessional.length === 0) {
-        let newMedicalProfessional = new medicalProfessional({
+        let newMedicalProfessional = new MedicalProfessional({
           phone: req.body.phone,
           name: req.body.name,
           role: req.body.role
