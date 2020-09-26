@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const {Schema} = mongoose;
 
 const MedicalProfessionalSchema = new mongoose.Schema({
+    name: {type: String},
     phone: {type: Number, required: true, unique: true},
     role: {
         type: String,
