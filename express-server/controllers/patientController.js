@@ -5,9 +5,8 @@ function registerPatient(req, res) {
   Patient.find({phone: req.body.phone}, function(err, patient){
     //cannot find the patient, create phone
     if(err){
-      
+      console.log(err);
     } else{
-      console.log(patient);
       if (patient.length === 0) {
         let newPatient = new Patient({
           phone: req.body.phone,
@@ -30,7 +29,7 @@ function registerPatient(req, res) {
 
 function confirmPhoneNumber(req, res) {
   Patient.find({phone: req.body.phone, SMSpasscode: req.body.SMSpasscode}, function(err, patient) {
-
+    
   }) 
 }
 
