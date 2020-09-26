@@ -7,22 +7,25 @@ import {StackNavigationHelpers} from "@react-navigation/stack/src/types";
 import StyledButton from "../components/StyledButton";
 
 import * as SecureStore from 'expo-secure-store';
+import {Prescription} from "../types";
 
 interface PrescriptionsScreenProps {
+    navigation: StackNavigationHelpers,
     patientName: string,
-    navigation: StackNavigationHelpers;
+    prescriptions: Prescription[],
 }
 
 export default function PrescriptionsScreen(props: PrescriptionsScreenProps) {
-    // This screen just leads to the sub-screens.
-    //
-    // CurrentPrescriptions should display a list of all of the prescriptions the user currently has. Tap the prescription
-    // to display a detailed view with more records etc.
-    //
-    // LastRepeat should show the list of prescriptions that are on their last repeat. If this isn't 0, the button
-    // should show a warning icon of some kind.
+    const lastRepeats = props.prescriptions.filter(prescription => prescription.currentRepeat == prescription.totalRepeats);
+    let subtitle = '';
+    if (lastRepeats) {
+        const len = lastRepeats.length;
+        subtitle = len + ' prescription' + (len == 1 ? ' is on its' : 's are on their') + ' last repeat.'
+    }
+
     return (
         <View style={styles.container}>
+            <Text>Welcome, {props.patientName}.</Text>
             <View style={styles.buttonContainer}>
                 <StyledButton
                     title={"Current"}
@@ -30,6 +33,7 @@ export default function PrescriptionsScreen(props: PrescriptionsScreenProps) {
                 />
                 <StyledButton
                     title={"Last Repeats"}
+                    subtitle={subtitle}
                     onPress={() => props.navigation.navigate('LastRepeatScreen')}
                 />
             </View>
@@ -38,6 +42,7 @@ export default function PrescriptionsScreen(props: PrescriptionsScreenProps) {
                     await SecureStore.deleteItemAsync('pin');
                     await SecureStore.deleteItemAsync('name');
                     await SecureStore.deleteItemAsync('patientKey');
+                    await SecureStore.deleteItemAsync('prescriptions');
                 }
                 doDeletion();
             }} title="[DEBUG] Delete Patient Data"/>
@@ -55,6 +60,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         width: '100%',
         height: '80%',
+        padding: 3,
     },
     title: {
         fontSize: 20,

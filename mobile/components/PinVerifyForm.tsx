@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Alert, StyleSheet} from 'react-native';
 import {Text, View} from '../components/Themed';
 import {Button, TextInput} from 'react-native';
@@ -23,6 +23,7 @@ export default function PinVerifyForm(props: PinFormProps) {
                         <Text style={styles.warning}>The PIN you entered was incorrect. Please try again.</Text>
                     )}
                     <TextInput
+                        autoFocus={true}
                         style={styles.numberInput}
                         autoCompleteType="tel"
                         keyboardType="numeric"

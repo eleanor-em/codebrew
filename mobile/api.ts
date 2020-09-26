@@ -1,5 +1,5 @@
 import {config} from './config';
-import {Prescription} from "./types";
+import {Drug, Prescription} from "./types";
 
 // For mocking up
 const validSmsCode = '123456';
@@ -41,83 +41,49 @@ async function checkSmsCode(phoneNumber: string, smsCode: string): Promise<strin
     }
 }
 
+interface ReturnedPrescription {
+    currentRepeat: number,
+    drug: Drug,
+    duration: string,
+    expiryDate: string,
+    frequency: string,
+    numberOfPills: number,
+    totalRepeats: number,
+    prescriber: string,
+}
+
 async function getPrescriptions(phone: string, patientKey: string)
-    : Promise<{ status: boolean, prescriptions: Prescription[]}> {
-    return {
-        status: true,
-        prescriptions: [{
-            drugName: 'Estradiol valerate',
-            numberOfPills: 2,
-            frequency: 'daily',
-            duration: '',
-            prescriber: 'Dr John Smith',
-            currentRepeat: 2,
-            totalRepeats: 5,
-            expiry: new Date(),
-        }, {
-            drugName: 'Cyproterone acetate',
-            numberOfPills: 0.25,
-            frequency: 'twice weekly',
-            duration: '',
-            prescriber: 'Dr John Smith',
-            currentRepeat: 2,
-            totalRepeats: 5,
-            expiry: new Date(),
-        }, {
-            drugName: 'Estradiol valerate',
-            numberOfPills: 2,
-            frequency: 'daily',
-            duration: '',
-            prescriber: 'Dr John Smith',
-            currentRepeat: 2,
-            totalRepeats: 5,
-            expiry: new Date(),
-        }, {
-            drugName: 'Cyproterone acetate',
-            numberOfPills: 0.25,
-            frequency: 'twice weekly',
-            duration: '',
-            prescriber: 'Dr John Smith',
-            currentRepeat: 2,
-            totalRepeats: 5,
-            expiry: new Date(),
-        }, {
-            drugName: 'Estradiol valerate',
-            numberOfPills: 2,
-            frequency: 'daily',
-            duration: '',
-            prescriber: 'Dr John Smith',
-            currentRepeat: 2,
-            totalRepeats: 5,
-            expiry: new Date(),
-        }, {
-            drugName: 'Cyproterone acetate',
-            numberOfPills: 0.25,
-            frequency: 'twice weekly',
-            duration: '',
-            prescriber: 'Dr John Smith',
-            currentRepeat: 2,
-            totalRepeats: 5,
-            expiry: new Date(),
-        }, {
-            drugName: 'Estradiol valerate',
-            numberOfPills: 2,
-            frequency: 'daily',
-            duration: '',
-            prescriber: 'Dr John Smith',
-            currentRepeat: 2,
-            totalRepeats: 5,
-            expiry: new Date(),
-        }, {
-            drugName: 'Cyproterone acetate',
-            numberOfPills: 0.25,
-            frequency: 'twice weekly',
-            duration: '',
-            prescriber: 'Dr John Smith',
-            currentRepeat: 2,
-            totalRepeats: 5,
-            expiry: new Date(),
-        }]
+    : Promise<{ status: boolean, prescriptions: Prescription[] }> {
+    const response = await fetch(config.apiAddress + '/getUserPrescriptions', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        redirect: 'follow',
+        body: JSON.stringify({
+            phone,
+            patient_key: patientKey
+        })
+    });
+    const data = await response.json();
+    if (data.status) {
+        return {
+            status: true,
+            prescriptions: data.prescriptions.map(({currentRepeat, drug, duration, expiryDate, frequency, numberOfPills, totalRepeats, prescriber}: ReturnedPrescription) => {
+                return {
+                    drug,
+                    numberOfPills,
+                    frequency,
+                    duration,
+                    prescriber,
+                    currentRepeat,
+                    totalRepeats,
+                    expiry: new Date(expiryDate),
+                } as Prescription;
+            }) as Prescription[],
+        };
+    } else {
+        return {status: false, prescriptions: [] as Prescription[]};
     }
 }
 

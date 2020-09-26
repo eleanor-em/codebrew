@@ -58,12 +58,10 @@ export default function RegisterScreen(props: RegisterScreenProps) {
     function onPinEntered(pin: string) {
         // Save patient data locally
         async function savePatientData() {
-            console.log('[DEBUG] saving data...');
             await SecureStore.setItemAsync('name', name);
             await SecureStore.setItemAsync('phoneNumber', phoneNumber);
             await SecureStore.setItemAsync('patientKey', patientKey);
             await SecureStore.setItemAsync('pin', pin);
-            console.log('[DEBUG] saved data');
             props.onRegistered(name, phoneNumber, patientKey);
         }
         savePatientData();

@@ -5,17 +5,9 @@ import {ColorSchemeName} from 'react-native';
 
 import NotFoundScreen from '../screens/NotFoundScreen';
 import {PatientData, Prescription, RootStackParamList} from '../types';
-import BottomTabNavigator from './BottomTabNavigator';
+import {BottomTabNavigator, AppContext} from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
 
-export const AppContext = React.createContext({
-    patientData: {
-        patientKey: '',
-        name: '',
-        phoneNumber: '',
-    },
-    prescriptions: [] as Prescription[],
-});
 
 interface NavigationProps {
     colorScheme: ColorSchemeName,

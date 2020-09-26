@@ -28,8 +28,17 @@ export interface PatientDataProps {
     patientData: PatientData
 }
 
+export interface Drug {
+    name: string,
+    contraindications: string[],
+    interactions: {
+        name: string,
+        effect: string,
+    }[],
+}
+
 export interface Prescription {
-    drugName: string,
+    drug: Drug,
     numberOfPills: number,
     frequency: string,
     duration: string,

@@ -32,6 +32,7 @@ export default function App() {
 
     const [prescriptions, setPrescriptions] = React.useState([] as Prescription[]);
 
+
     // Check if there is a PIN in storage
     React.useEffect(() => {
         async function checkForPin() {
@@ -44,10 +45,23 @@ export default function App() {
             } else {
                 setHasPin(false);
             }
+
+            // ...and look for cached prescriptions just in case
+            const prescriptions = await SecureStore.getItemAsync('prescriptions');
+            if (prescriptions != null) {
+                // this is kind of dumb, JSON.parse can't parse dates automatically
+                const parsed = JSON.parse(prescriptions);
+                for (const prescription of parsed) {
+                    prescription.expiry = new Date(prescription.expiry);
+                }
+
+                setPrescriptions(parsed);
+            }
         }
 
         checkForPin();
     }, []);
+
 
     // Callback for when the user first registers
     function onRegistered(name: string, phoneNumber: string, patientKey: string) {
@@ -66,10 +80,12 @@ export default function App() {
             const phoneNumber = await SecureStore.getItemAsync('phoneNumber');
             const patientKey = await SecureStore.getItemAsync('patientKey');
 
-            if (name != null && patientKey != null) {
+            if (name != null && phoneNumber != null && patientKey != null) {
                 setName(name);
+                setPhoneNumber(phoneNumber);
                 setPatientKey(patientKey);
                 setReady(true);
+                updatePrescriptions(phoneNumber, patientKey);
             } else {
                 Alert.alert('Failed to fetch user data. Perhaps try restarting the app?');
             }
@@ -83,29 +99,24 @@ export default function App() {
         }
     }
 
-    function updatePrescriptions() {
+    function updatePrescriptions(phoneNumber: string, patientKey: string) {
         async function getData() {
-            console.log('[DEBUG] retrieving prescriptions...');
             const { status, prescriptions } = await Api.getPrescriptions(phoneNumber, patientKey);
             if (status) {
                 setPrescriptions(prescriptions);
-                console.log('[DEBUG] retrieved prescriptions');
+                console.log(JSON.stringify(prescriptions));
+                await SecureStore.setItemAsync('prescriptions', JSON.stringify(prescriptions));
             } else {
-                console.log('[DEBUG] failed to retrieve prescriptions');
+                alert('Failed to retrieve your prescriptions.');
             }
         }
-        if (ready) {
-            getData();
-        }
+        getData();
     }
-
-    // Check prescription after ready is set
-    React.useEffect(updatePrescriptions, [ ready ]);
 
     // Repeatedly check prescription data
     React.useEffect(() => {
         const timer = setInterval(() => {
-            updatePrescriptions();
+            updatePrescriptions(phoneNumber, patientKey);
         }, config.pollFrequency);
         return () => clearInterval(timer);
     }, []);
