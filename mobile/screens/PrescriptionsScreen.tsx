@@ -4,6 +4,9 @@ import 'react-native-gesture-handler';
 
 import {Text, View} from '../components/Themed';
 import {StackNavigationHelpers} from "@react-navigation/stack/src/types";
+import StyledButton from "../components/StyledButton";
+
+import * as SecureStore from 'expo-secure-store';
 
 interface PrescriptionsScreenProps {
     navigation: StackNavigationHelpers;
@@ -19,23 +22,39 @@ export default function PrescriptionsScreen(props: PrescriptionsScreenProps) {
     // should show a warning icon of some kind.
     return (
         <View style={styles.container}>
-            <Button
-                title={"Current"}
-                onPress={() => props.navigation.navigate('CurrentPrescriptionsScreen')}
-            />
-            <Button
-                title={"Last Repeats"}
-                onPress={() => props.navigation.navigate('LastRepeatScreen')}
-            />
+            <Text>Welcome, Eleanor.</Text>
+            <View style={styles.buttonContainer}>
+                <StyledButton
+                    title={"Current"}
+                    onPress={() => props.navigation.navigate('CurrentPrescriptionsScreen')}
+                />
+                <StyledButton
+                    title={"Last Repeats"}
+                    onPress={() => props.navigation.navigate('LastRepeatScreen')}
+                />
+            </View>
+            <Button onPress={() => {
+                async function doDeletion() {
+                    await SecureStore.deleteItemAsync('pin');
+                    await SecureStore.deleteItemAsync('name');
+                    await SecureStore.deleteItemAsync('patientKey');
+                }
+                doDeletion();
+            }} title="[DEBUG] Delete Patient Data"/>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    buttonContainer: {
+        display: 'flex',
+        width: '100%',
+        height: '80%',
     },
     title: {
         fontSize: 20,
