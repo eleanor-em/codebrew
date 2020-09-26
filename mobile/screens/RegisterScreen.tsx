@@ -25,12 +25,16 @@ export default function RegisterScreen(props: RegisterScreenProps) {
 
     function onPatientData(phoneNumber: string, name: string) {
         async function registerPatient() {
-            if (await Api.registerPatient(phoneNumber, name)) {
-                setName(name);
-                setPhoneNumber(phoneNumber);
-                setRegisterState(RegisterState.EnterSmsPasscode);
-            } else {
-                Alert.alert('Failed to register user');
+            try {
+                if (await Api.registerPatient(phoneNumber, name)) {
+                    setName(name);
+                    setPhoneNumber(phoneNumber);
+                    setRegisterState(RegisterState.EnterSmsPasscode);
+                } else {
+                    Alert.alert('Failed to register user');
+                }
+            } catch (_) {
+                Alert.alert('Failed to connect to server');
             }
         }
 
@@ -39,12 +43,12 @@ export default function RegisterScreen(props: RegisterScreenProps) {
 
     function onCodeEntered(code: string) {
         async function checkCodeValid() {
-            const receivedKey = await Api.checkSmsCode(code);
+            const receivedKey = await Api.checkSmsCode(phoneNumber, code);
             if (receivedKey != null) {
                 setPatientKey(receivedKey);
                 setRegisterState(RegisterState.CreatePin);
             } else {
-                Alert.alert('Code incorrect. Please try again');
+                Alert.alert('Code incorrect. Please try again.');
             }
         }
 

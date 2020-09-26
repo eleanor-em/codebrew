@@ -4,24 +4,33 @@ import * as React from 'react';
 import {ColorSchemeName} from 'react-native';
 
 import NotFoundScreen from '../screens/NotFoundScreen';
-import {PatientData, RootStackParamList} from '../types';
+import {PatientData, Prescription, RootStackParamList} from '../types';
 import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
 
 export const AppContext = React.createContext({
-    patientKey: '',
-    name: '',
-    phoneNumber: '',
+    patientData: {
+        patientKey: '',
+        name: '',
+        phoneNumber: '',
+    },
+    prescriptions: [] as Prescription[],
 });
+
+interface NavigationProps {
+    colorScheme: ColorSchemeName,
+    patientData: PatientData,
+    prescriptions: Prescription[],
+}
 
 // If you are not familiar with React Navigation, we recommend going through the
 // "Fundamentals" guide: https://reactnavigation.org/docs/getting-started
-export function Navigation({colorScheme, patientData}: { colorScheme: ColorSchemeName, patientData: PatientData }) {
+export function Navigation({colorScheme, patientData, prescriptions}: NavigationProps) {
     return (
         <NavigationContainer
             linking={LinkingConfiguration}
             theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-            <AppContext.Provider value={patientData}>
+            <AppContext.Provider value={{patientData, prescriptions}}>
                 <RootNavigator/>
             </AppContext.Provider>
         </NavigationContainer>

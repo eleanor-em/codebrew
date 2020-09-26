@@ -50,6 +50,14 @@ function TabBarIcon(props: { name: string; color: string }) {
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
 const PrescriptionsStack = createStackNavigator<PrescriptionsParamList>();
 
+function CurrentPrescriptionsContextWrapper() {
+    return (
+        <AppContext.Consumer>
+            {value => (<CurrentPrescriptionsScreen prescriptions={value.prescriptions}/>)}
+        </AppContext.Consumer>
+    );
+}
+
 function PrescriptionsNavigator() {
     return (
         <PrescriptionsStack.Navigator>
@@ -60,8 +68,8 @@ function PrescriptionsNavigator() {
             />
             <PrescriptionsStack.Screen
                 name="CurrentPrescriptionsScreen"
-                component={CurrentPrescriptionsScreen}
-                options={{headerTitle: 'Current'}}
+                component={CurrentPrescriptionsContextWrapper}
+                options={{headerTitle: 'Current Prescriptions'}}
             />
             <PrescriptionsStack.Screen
                 name="LastRepeatScreen"
@@ -77,7 +85,7 @@ const AuthorisationStack = createStackNavigator<AuthorisationParamList>();
 function AuthorisationContextWrapper() {
     return (
         <AppContext.Consumer>
-            {value => (<AuthorisationScreen patientData={value}/>)}
+            {value => (<AuthorisationScreen patientData={value.patientData}/>)}
         </AppContext.Consumer>
     );
 }
