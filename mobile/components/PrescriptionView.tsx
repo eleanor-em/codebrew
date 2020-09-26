@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View} from '../components/Themed';
+import {Text, View} from './Themed';
 import {Prescription} from "../types";
 import {StyleSheet} from "react-native";
 import {config} from "../config";
@@ -17,10 +17,10 @@ export default function PrescriptionView(props: PrescriptionViewProps) {
     return (
         <View style={styles.container}>
             <View style={styles.inner}>
-                <Text style={styles.title}>{props.prescription.drugName}</Text>
+                <Text style={styles.title}>{props.prescription.drug.name}</Text>
                 <Text style={{...styles.subtitle, color}}>Repeat {props.prescription.currentRepeat}/{props.prescription.totalRepeats}</Text>
                 <Text>Take {props.prescription.numberOfPills} {props.prescription.frequency}{
-                    props.prescription.duration && (' ' + props.prescription.duration)
+                    props.prescription.duration != '-' && (' ' + props.prescription.duration)
                 }.</Text>
             </View>
             <View style={styles.expiryDate}>

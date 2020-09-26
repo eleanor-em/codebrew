@@ -7,15 +7,22 @@ import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import PrescriptionsScreen from '../screens/PrescriptionsScreen';
 import AuthorisationScreen from '../screens/AuthorisationScreen';
-import {BottomTabParamList, PrescriptionsParamList, AuthorisationParamList} from '../types';
+import {BottomTabParamList, PrescriptionsParamList, AuthorisationParamList, Prescription} from '../types';
 import LastRepeatScreen from "../screens/LastRepeatScreen";
 import CurrentPrescriptionsScreen from "../screens/CurrentPrescriptionsScreen";
 
-import {AppContext} from './index';
+const AppContext = React.createContext({
+    patientData: {
+        patientKey: '',
+        name: '',
+        phoneNumber: '',
+    },
+    prescriptions: [] as Prescription[],
+});
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
-export default function BottomTabNavigator() {
+function BottomTabNavigator() {
     const colorScheme = useColorScheme();
 
     return (
@@ -100,4 +107,9 @@ function AuthorisationNavigator() {
             />
         </AuthorisationStack.Navigator>
     );
+}
+
+export {
+    AppContext,
+    BottomTabNavigator
 }

@@ -66,10 +66,12 @@ export default function App() {
             const phoneNumber = await SecureStore.getItemAsync('phoneNumber');
             const patientKey = await SecureStore.getItemAsync('patientKey');
 
-            if (name != null && patientKey != null) {
+            if (name != null && phoneNumber != null && patientKey != null) {
                 setName(name);
+                setPhoneNumber(phoneNumber);
                 setPatientKey(patientKey);
                 setReady(true);
+                updatePrescriptions(phoneNumber, patientKey);
             } else {
                 Alert.alert('Failed to fetch user data. Perhaps try restarting the app?');
             }
@@ -83,29 +85,22 @@ export default function App() {
         }
     }
 
-    function updatePrescriptions() {
+    function updatePrescriptions(phoneNumber: string, patientKey: string) {
         async function getData() {
-            console.log('[DEBUG] retrieving prescriptions...');
             const { status, prescriptions } = await Api.getPrescriptions(phoneNumber, patientKey);
             if (status) {
                 setPrescriptions(prescriptions);
-                console.log('[DEBUG] retrieved prescriptions');
             } else {
-                console.log('[DEBUG] failed to retrieve prescriptions');
+                alert('Failed to retrieve your prescriptions. Is your internet disconnected?');
             }
         }
-        if (ready) {
-            getData();
-        }
+        getData();
     }
-
-    // Check prescription after ready is set
-    React.useEffect(updatePrescriptions, [ ready ]);
 
     // Repeatedly check prescription data
     React.useEffect(() => {
         const timer = setInterval(() => {
-            updatePrescriptions();
+            updatePrescriptions(phoneNumber, patientKey);
         }, config.pollFrequency);
         return () => clearInterval(timer);
     }, []);

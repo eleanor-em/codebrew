@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
         width: '100%',
         padding: 20,
         marginTop: 15,
-        marginBottom: 15,
+        borderRadius: 4,
     },
     title: {
         flex: 1,
