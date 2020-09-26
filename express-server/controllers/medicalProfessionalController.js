@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const MedicalProfessional = mongoose.model('MedicalProfessional');
+const Patient = mongoose.model('Patient');
 const totp = require('./totp');
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
@@ -85,8 +86,16 @@ function accessPatient(req, res) {
             res.send({status: false, logout: true});
         } else {
             const user = data[0];
-            if (user.expiry.getTime() < Date.now()) {
-                Patient.find({phone: req.body.phone, confirmed: true}, (err, data) => {
+            console.log(user.expiry.getTime());
+            console.log(Date.now());
+            if (Date.now() < user.expiry.getTime()) {
+                Patient.find({phone: req.body.phone, confirmed: true})
+                    .populate('prescriptions')
+                    .populate({
+                        path: 'prescriptions',
+                        populate: {path: 'drug'}
+                    })
+                    .exec((err, data) => {
                     if (err || data.length === 0) {
                         console.log('[DEBUG] failed to find patient while accessing');
                         res.send({status: false, logout: false});
@@ -132,7 +141,7 @@ function getPrescriptions(req, res) {
             res.send({status: false});
         } else {
             const patient = data[0];
-            if (patient.accessExpiry.getTime() < Date.now()) {
+            if (Date.now() < patient.accessExpiry.getTime()) {
                 res.send({status: true, prescriptions: patient.prescriptions});
             } else {
                 console.log('[DEBUG] patient access token expired');

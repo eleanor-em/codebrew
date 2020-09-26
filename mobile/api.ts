@@ -8,6 +8,7 @@ const alicePatientKey = 'abasbabbasbdasdguyewuh';
 async function registerPatient(phoneNumber: string, name: string): Promise<boolean> {
     const response = await fetch(config.apiAddress + '/registerPatient', {
         method: 'POST',
+        mode: 'cors',
         headers: {
             'Content-Type': 'application/json'
         },
@@ -24,6 +25,7 @@ async function registerPatient(phoneNumber: string, name: string): Promise<boole
 async function checkSmsCode(phoneNumber: string, smsCode: string): Promise<string | null> {
     const response = await fetch(config.apiAddress + '/confirmPhoneNumber', {
         method: 'POST',
+        mode: 'cors',
         headers: {
             'Content-Type': 'application/json'
         },
@@ -56,6 +58,7 @@ async function getPrescriptions(phone: string, patientKey: string)
     : Promise<{ status: boolean, prescriptions: Prescription[] }> {
     const response = await fetch(config.apiAddress + '/getUserPrescriptions', {
         method: 'POST',
+        mode: 'cors',
         headers: {
             'Content-Type': 'application/json'
         },

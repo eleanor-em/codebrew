@@ -67,4 +67,4 @@ async function totp(key, opts = {
     });
 }
 
-module.exports = {totp};
+module.exports = totp;

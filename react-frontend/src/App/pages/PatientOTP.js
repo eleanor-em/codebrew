@@ -1,72 +1,62 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import '../static/PatientOTP.scss'
 
-function PatientOTP() {
-  
-  const [patientPhone, setPatientPhone] = useState('');
-  const [patientOTP, setPatientOTP] = useState('');
-  const [isEmptyPhone, setIsEmptyPhone] = useState(false);
-  const [userNotFound, setUserNotFound] = useState(false);
-  // const [isEmptyOTP, setIsEmptyOTP] = useState(false);
+function PatientOTP(props) {
+    const [phone, setPhone] = React.useState('');
+    const [otp, setOtp] = React.useState('');
+    const [otpActive, setOtpActive] = React.useState(true);
 
+    function checkOtp() {
+        console.log('verifying ' + phone + ' ' + otp);
+        fetch('http://localhost:5000/accessPatient', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            redirect: 'follow',
+            body: JSON.stringify({ sessionToken: props.sessionToken, phone, otp })
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data.status) {
+                    props.receiveAccessToken(data.token);
+                }
+                if (data.logout) {
+                    props.logout();
+                }
+            });
 
-  useEffect(() => {
-    if(patientOTP.length === 6) {
-      console.log(patientOTP);
-      document.getElementById("pOTP").disabled = true;
-      setTimeout(() => {
-        document.getElementById("pOTP").disabled = false;
-      }, 1000);
     }
-  })
-  
-  return (
-    <div className="PatientOTP">
-      <div className="PhoneNumberField">
-        <label>Enter patient's phone number</label><br />
-        <input type="text" id="pPhone" onChange={(event) => setPatientPhone(event.target.value)}></input> <br />
-        <button id="btnPhone" onClick={submitPatientPhone}>Submit</button> <br />
-        {isEmptyPhone ? <p  style={{color : 'red'}}>This is empty!</p>:<div></div>}
-        {userNotFound ? <p style={{color: 'red'}}>There is no patient with this phone number</p> : <div></div>}
-      </div>
-        <label>Enter patient's OTP</label><br />
-        <input id="pOTP" maxLength='6' onChange={(event) => setPatientOTP(event.target.value)}/>
 
-    </div>
-  );
-
-  function submitPatientPhone() {
-      if(patientPhone === '') {
-        setIsEmptyPhone(true);
-      } else {
-        setIsEmptyPhone(false);
-        getTOTP({phone: patientPhone});
-
-      }
-  }
-
-  function getTOTP(data) {
-    var url = 'http://localhost:5000/totp';
-    fetch(url, {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers:{
-        'Content-Type': 'application/json'
-      }
-    }).then(res => res.json())
-    .then(response => {
-        if (response.status === false) {
-          setUserNotFound(true)
-        } else {
-          setUserNotFound(false)
-          console.log(response);
+    React.useEffect(() => {
+        if (otp.length === 6) {
+            setOtpActive(false);
+            setTimeout(() => {
+                setOtpActive(true);
+            }, 1000);
         }
     })
-    .catch(error => console.error('Error:', error));
-  }
 
- 
-
+    return (
+        <div className="PatientOTP" style={{block: 'center', textAlign: 'center', padding: '10em'}}>
+            <form action="" method="POST" onSubmit={e => {
+                e.preventDefault();
+                checkOtp();
+            }}>
+                <label>Enter patient's phone number</label><br/>
+                <input type="text" id="pPhone" pattern="[0-9]*" onChange={(event) => {
+                    event.target.value = event.target.value.replaceAll(/\D/g, '');
+                    setPhone(event.target.value)
+                }}/> <br/>
+                <br/>
+                <label>Enter patient's OTP</label><br/>
+                <input disabled={!otpActive} id="pOTP" maxLength='6' onChange={(event) => setOtp(event.target.value)}/>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    );
 }
 
 export default PatientOTP;

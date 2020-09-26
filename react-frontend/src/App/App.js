@@ -22,11 +22,18 @@ import UnauthenticatedApp from './UnauthenticatedApp';
 //   );
 // }
 function App(props) {
-    const [loggedIn, setLoggedIn] = useState(false);
-    const [token, setToken] = useState('');
+    // const [loggedIn, setLoggedIn] = useState(false);
+    // const [token, setToken] = useState('');
+    const [loggedIn, setLoggedIn] = useState(true);
+    const [token, setToken] = useState('f241bdf92eb03f197ee297393ee482714be9c2c2e501bc81c8dd5d90817851ac');
+
+    function logout() {
+        setToken('');
+        setLoggedIn(false);
+    }
 
     if (loggedIn) {
-        return <AuthenticatedApp user={token} />;
+        return <AuthenticatedApp sessionToken={token} logout={logout} />;
     } else {
         return <UnauthenticatedApp receiveToken={token => {
             setLoggedIn(true);
