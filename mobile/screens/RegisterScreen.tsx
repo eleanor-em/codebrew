@@ -25,12 +25,16 @@ export default function RegisterScreen(props: RegisterScreenProps) {
 
     function onPatientData(phoneNumber: string, name: string) {
         async function registerPatient() {
-            if (await Api.registerPatient(phoneNumber, name)) {
-                setName(name);
-                setPhoneNumber(phoneNumber);
-                setRegisterState(RegisterState.EnterSmsPasscode);
-            } else {
-                Alert.alert('Failed to register user');
+            try {
+                if (await Api.registerPatient(phoneNumber, name)) {
+                    setName(name);
+                    setPhoneNumber(phoneNumber);
+                    setRegisterState(RegisterState.EnterSmsPasscode);
+                } else {
+                    Alert.alert('Failed to register user');
+                }
+            } catch (_) {
+                Alert.alert('Failed to connect to server');
             }
         }
 

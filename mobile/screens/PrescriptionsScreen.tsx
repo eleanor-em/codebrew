@@ -9,6 +9,7 @@ import StyledButton from "../components/StyledButton";
 import * as SecureStore from 'expo-secure-store';
 
 interface PrescriptionsScreenProps {
+    patientName: string,
     navigation: StackNavigationHelpers;
 }
 
@@ -22,7 +23,6 @@ export default function PrescriptionsScreen(props: PrescriptionsScreenProps) {
     // should show a warning icon of some kind.
     return (
         <View style={styles.container}>
-            <Text>Welcome, Eleanor.</Text>
             <View style={styles.buttonContainer}>
                 <StyledButton
                     title={"Current"}

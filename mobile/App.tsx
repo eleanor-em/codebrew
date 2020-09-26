@@ -11,6 +11,8 @@ import * as Api from './api';
 import RegisterScreen from "./screens/RegisterScreen";
 import {Alert} from "react-native";
 import PinVerifyForm from "./components/PinVerifyForm";
+import {config} from "./config";
+import {Prescription} from "./types";
 
 export default function App() {
     // Load fonts etc.
@@ -27,6 +29,8 @@ export default function App() {
     const [name, setName] = React.useState('');
     const [phoneNumber, setPhoneNumber] = React.useState('');
     const [patientKey, setPatientKey] = React.useState('');
+
+    const [prescriptions, setPrescriptions] = React.useState([] as Prescription[]);
 
     // Check if there is a PIN in storage
     React.useEffect(() => {
@@ -79,6 +83,33 @@ export default function App() {
         }
     }
 
+    function updatePrescriptions() {
+        async function getData() {
+            console.log('[DEBUG] retrieving prescriptions...');
+            const { status, prescriptions } = await Api.getPrescriptions(phoneNumber, patientKey);
+            if (status) {
+                setPrescriptions(prescriptions);
+                console.log('[DEBUG] retrieved prescriptions');
+            } else {
+                console.log('[DEBUG] failed to retrieve prescriptions');
+            }
+        }
+        if (ready) {
+            getData();
+        }
+    }
+
+    // Check prescription after ready is set
+    React.useEffect(updatePrescriptions, [ ready ]);
+
+    // Repeatedly check prescription data
+    React.useEffect(() => {
+        const timer = setInterval(() => {
+            updatePrescriptions();
+        }, config.pollFrequency);
+        return () => clearInterval(timer);
+    }, []);
+
     if (!isLoadingComplete) {
         return null;
     } else if (!checkedForPin) {
@@ -114,11 +145,15 @@ export default function App() {
     } else {
         return (
             <SafeAreaProvider>
-                <Navigation colorScheme={colorScheme} patientData={{
-                    name,
-                    phoneNumber,
-                    patientKey
-                }} />
+                <Navigation
+                    colorScheme={colorScheme}
+                    patientData={{
+                        name,
+                        phoneNumber,
+                        patientKey
+                    }}
+                    prescriptions={prescriptions}
+                />
                 <StatusBar/>
             </SafeAreaProvider>
         );
