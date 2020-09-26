@@ -11,24 +11,24 @@ const MedicalProfessionalSchema = new mongoose.Schema({
         required: true
     },
     email: {type: String, required: true},
-    password: {type: String, required: true}
+    passwordHash: {type: String, required: true}
 });
 
 // Hashing a password before saving it to the database
 MedicalProfessionalSchema.pre("save", function(next) {
     let user = this;
-    bcrypt.hash(user.password, 10, (err, hash) => {
+    bcrypt.hash(user.passwordHash, 10, (err, hash) => {
         if (err) {
             return next(err);
         } else {
-            user.password = hash;
+            user.passwordHash = hash;
             next();
         }
     });
 });
 
 // Authenticate input against database.
-MedicalProfessionalSchema.statics.authenticate = (email, password, cb) => {
+MedicalProfessionalSchema.statics.authenticate = (email, passwordHash, cb) => {
     MedicalProfessional.findOne({email: email})
         .exec((err, user) => {
             if (err) {
@@ -38,7 +38,7 @@ MedicalProfessionalSchema.statics.authenticate = (email, password, cb) => {
                 err.status = 401;
                 return cb(err);
             }
-            bcrypt.compare(password, user.password, (err, result) => {
+            bcrypt.compare(password, user.passwordHash, (err, result) => {
                 if (result == true) {
                     return cb(null, user);
                 } else {
