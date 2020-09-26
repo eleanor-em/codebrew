@@ -10,7 +10,7 @@ function App() {
   })
 
   function getMessage() {
-    fetch('/helloMessage')
+    fetch('http://localhost:5000/helloMessage')
       .then(res => res.json())
       .then(data => {
         setMessage(data.message);

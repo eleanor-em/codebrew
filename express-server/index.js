@@ -2,12 +2,17 @@
 const express = require('express');
 const bodyparser = require('body-parser');
 const path = require('path');
+const cors = require('cors')
 
 // const cookieParser = require('cookie-parser');
 // const session = require('express-session');
 // const MongoStore = require('connect-mongo')(session);
 
+
 const app = express();
+
+app.use(cors())
+
 
 // Database setup
 // const db = require('./models/db');
@@ -20,9 +25,9 @@ const routes = require('./routes/generalRoutes');
 
 app.use('/', routes);
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-}) 
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+// }) 
 
 // port set up
 const PORT = process.env.PORT || 5000;
