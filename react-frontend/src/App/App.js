@@ -4,52 +4,44 @@
  * component
  */
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './App.css';
+<<<<<<< HEAD
 import PatientOTP from './pages/PatientOTP';
 import PatientPrescription from './pages/PatientPrescription';
+||||||| merged common ancestors
+import PatientOTP from './pages/PatientOTP';
+=======
+>>>>>>> 2318f1ed787fb0bfb1d27bb496a9a5570c8f8c4b
 import AuthenticatedApp from './AuthenticatedApp';
 import UnauthenticatedApp from './UnauthenticatedApp';
+import AdminPage from "./pages/AdminPage";
 
-// for testing single page PatientOTP
-// function App() {
-  
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <PatientOTP />
-//       </header>
-//     </div>
-//   );
-// }
-
-// function App (){
-//     return (
-//        <div className="App">
-//          <header className="App-header">
-//            <PatientPrescription />
-//          </header>
-//       </div>
-//     )
-// }
-function App(props) {
-    // const [loggedIn, setLoggedIn] = useState(false);
-    // const [token, setToken] = useState('');
-    const [loggedIn, setLoggedIn] = useState(true);
-    const [token, setToken] = useState('f241bdf92eb03f197ee297393ee482714be9c2c2e501bc81c8dd5d90817851ac');
+function App() {
+    const [loggedIn, setLoggedIn] = React.useState(false);
+    const [token, setToken] = React.useState('');
+    const [showAdmin, setShowAdmin] = React.useState(false);
+    const [email, setEmail] = React.useState('');
 
     function logout() {
         setToken('');
         setLoggedIn(false);
+        setShowAdmin(false);
     }
 
-    if (loggedIn) {
-        return <AuthenticatedApp sessionToken={token} logout={logout} />;
+    function onShowAdmin() {
+        setShowAdmin(true);
+    }
+
+    if (showAdmin) {
+        return <AdminPage onBack={() => setShowAdmin(false)}/>
+    } else if (loggedIn) {
+        return <AuthenticatedApp sessionToken={token} logout={logout} email={email}/>;
     } else {
-        return <UnauthenticatedApp receiveToken={token => {
+        return <UnauthenticatedApp onShowAdmin={onShowAdmin} receiveToken={token => {
             setLoggedIn(true);
             setToken(token);
-        }}/>;
+        }} setEmail={setEmail}/>;
     }
 }
 

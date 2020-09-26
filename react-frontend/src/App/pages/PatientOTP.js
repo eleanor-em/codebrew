@@ -22,6 +22,7 @@ function PatientOTP(props) {
                 console.log(data)
                 if (data.status) {
                     props.receiveAccessToken(data.token);
+                    props.setRole(data.role);
                 }
                 if (data.logout) {
                     props.logout();
@@ -37,7 +38,7 @@ function PatientOTP(props) {
                 setOtpActive(true);
             }, 1000);
         }
-    })
+    }, []);
 
     return (
         <div className="PatientOTP" style={{block: 'center', textAlign: 'center', padding: '10em'}}>

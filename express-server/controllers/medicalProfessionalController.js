@@ -39,12 +39,13 @@ function addUser(req, res) {
                         }
                     });
                 } else {
+                    console.log('[DEBUG] professional with email ' + req.body.email + ' already exists');
                     res.send({status: false});
                 }
             }
         })
     } else {
-        console.log('[DEBUG] admin auth incorrect');
+        console.log('[DEBUG] admin auth incorrect: "' + req.body.auth + '"');
         res.send({status: false});
     }
 }
@@ -113,7 +114,7 @@ function accessPatient(req, res) {
                                             console.log('[DEBUG] error saving patient expiry');
                                             res.send({status: false, logout: false});
                                         } else {
-                                            res.send({status: true, token: patient.accessToken});
+                                            res.send({status: true, token: patient.accessToken, role: user.role});
                                         }
                                     })
                                 } else {
@@ -135,7 +136,7 @@ function accessPatient(req, res) {
 }
 
 function getPrescriptions(req, res) {
-    Patient.find({acecssToken: req.body.accessToken}, (err, data) => {
+    Patient.find({accessToken: req.body.accessToken}, (err, data) => {
         if (err || data.length === 0) {
             console.log('[DEBUG] error finding patient');
             res.send({status: false});
@@ -145,7 +146,7 @@ function getPrescriptions(req, res) {
                 res.send({status: true, prescriptions: patient.prescriptions});
             } else {
                 console.log('[DEBUG] patient access token expired');
-                res.send({status: false});
+                res.send({status: false, expired: true});
             }
         }
     })

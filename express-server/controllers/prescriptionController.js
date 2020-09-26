@@ -4,9 +4,7 @@ const MedicalProfessional = mongoose.model('MedicalProfessional');
 const Drug = mongoose.model('Drug');
 
 function addPrescription(req, res) {
-
-
-    console.log(req.body) 
+    console.log(req.body)
     if (req.body.prescriber) {
         MedicalProfessional.find({name: req.body.prescriber}, function(err, professional) {
             if (err) {
