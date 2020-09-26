@@ -9,7 +9,7 @@ const PrescriptionSchema = new mongoose.Schema(
         duration: {type: String, required: true},
         prescriber: {type: Schema.Types.ObjectId, ref:"MedicalProfessional", required: true},
         totalRepeats: {type: Number, required: true},
-        currentRepeat: {type: Number, required: true},
+        currentRepeat: {type: Number, default: 0},
         expiryDate: {type: Date, required: true}
     }
 );

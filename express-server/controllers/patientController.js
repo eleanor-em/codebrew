@@ -11,7 +11,8 @@ function registerPatient(req, res) {
       if (patient.length === 0) {
         let newPatient = new Patient({
           phone: req.body.phone,
-          name: req.body.name
+          name: req.body.name,
+          SMSpasscode: '123456'
         })
         
         newPatient.save(function(err, data){

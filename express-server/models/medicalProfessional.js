@@ -4,13 +4,14 @@ const {Schema} = mongoose;
 
 const MedicalProfessionalSchema = new mongoose.Schema({
     name: {type: String},
-    phone: {type: Number, required: true, unique: true},
+    phone: {type: Number},
     role: {
         type: String,
-        enum: ['GP', 'pharmacist']
+        enum: ['GP', 'pharmacist'],
+        required: true
     },
-    email: String,
-    passwordHash: String
+    email: {type: String, required: true},
+    passwordHash: {type: String, required: true}
 });
 
 const MedicalProfessional = mongoose.model('MedicalProfessional', MedicalProfessionalSchema);

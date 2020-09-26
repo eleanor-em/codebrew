@@ -6,9 +6,9 @@ const DrugSchema = new mongoose.Schema(
        name: {type: String, required: true},
        interactions: [{
            drug: {type: Schema.Types.ObjectId, ref: 'Drug'},
-           effect: {type: String, required: true}
+           effect: {type: String}
        }],
-       contraindications: [{type: String, required: true}]
+       contraindications: [{type: String}]
     }
 );
 

@@ -3,10 +3,10 @@
 
   const PatientSchema = new mongoose.Schema({
     phone:  {type: Number, required: true, unique: true},
-    name: String,
-    patient_key: String,
+    name: {type: String, required: true},
+    patient_key: {type: String, required: true},
     prescriptions:  [{type: Schema.Types.ObjectId, ref: "Prescription"}],
-    confirmed: Boolean,
+    confirmed: {type: Boolean, required: true},
     SMSpasscode: Number
   }
 );
