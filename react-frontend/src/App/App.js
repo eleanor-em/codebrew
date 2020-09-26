@@ -1,26 +1,13 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import './App.css';
+import PatientOTP from './pages/PatientOTP';
 
 function App() {
-  
-  const [message, setMessage] = useState('');
-
-  useEffect(() => {
-    getMessage();
-  })
-
-  function getMessage() {
-    fetch('http://localhost:5000/helloMessage')
-      .then(res => res.json())
-      .then(data => {
-        setMessage(data.message);
-      })
-  }
   
   return (
     <div className="App">
       <header className="App-header">
-        <p>{message}</p>
+        <PatientOTP />
       </header>
     </div>
   );
