@@ -32,7 +32,7 @@ app.use('/', routes);
 // port set up
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-    console.log(`Express servivng at port ${PORT}`);
+    console.log(`Express serving at port ${PORT}`);
 })
 
 module.exports= app;
