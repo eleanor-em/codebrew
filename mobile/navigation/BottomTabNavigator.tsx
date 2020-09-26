@@ -10,6 +10,7 @@ import AuthorisationScreen from '../screens/AuthorisationScreen';
 import {BottomTabParamList, PrescriptionsParamList, AuthorisationParamList, Prescription} from '../types';
 import LastRepeatScreen from "../screens/LastRepeatScreen";
 import CurrentPrescriptionsScreen from "../screens/CurrentPrescriptionsScreen";
+import {StackNavigationHelpers} from "@react-navigation/stack/src/types";
 
 const AppContext = React.createContext({
     patientData: {
@@ -64,13 +65,35 @@ function CurrentPrescriptionsContextWrapper() {
         </AppContext.Consumer>
     );
 }
+function LastRepeatContextWrapper() {
+    return (
+        <AppContext.Consumer>
+            {value => (<LastRepeatScreen prescriptions={value.prescriptions}/>)}
+        </AppContext.Consumer>
+    );
+}
+
+interface PrescriptionsWrapperProps {
+    navigation: StackNavigationHelpers,
+}
+
+function PrescriptionsContextWrapper(props: PrescriptionsWrapperProps) {
+    return (
+        <AppContext.Consumer>
+            {value => (<PrescriptionsScreen
+                navigation={props.navigation}
+                patientName={value.patientData.name}
+                prescriptions={value.prescriptions}/>)}
+        </AppContext.Consumer>
+    );
+}
 
 function PrescriptionsNavigator() {
     return (
         <PrescriptionsStack.Navigator>
             <PrescriptionsStack.Screen
                 name="PrescriptionsScreen"
-                component={PrescriptionsScreen}
+                component={PrescriptionsContextWrapper}
                 options={{headerTitle: 'My Prescriptions'}}
             />
             <PrescriptionsStack.Screen
@@ -80,7 +103,7 @@ function PrescriptionsNavigator() {
             />
             <PrescriptionsStack.Screen
                 name="LastRepeatScreen"
-                component={LastRepeatScreen}
+                component={LastRepeatContextWrapper}
                 options={{headerTitle: 'Last Repeats'}}
             />
         </PrescriptionsStack.Navigator>

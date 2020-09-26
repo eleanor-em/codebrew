@@ -19,8 +19,8 @@ export default function PrescriptionView(props: PrescriptionViewProps) {
             <View style={styles.inner}>
                 <Text style={styles.title}>{props.prescription.drug.name}</Text>
                 <Text style={{...styles.subtitle, color}}>Repeat {props.prescription.currentRepeat}/{props.prescription.totalRepeats}</Text>
-                <Text>Take {props.prescription.numberOfPills} {props.prescription.frequency}{
-                    props.prescription.duration != '-' && (' ' + props.prescription.duration)
+                <Text style={styles.inner}>Take {props.prescription.numberOfPills} {props.prescription.frequency}{
+                    props.prescription.duration != '-' && (' for ' + props.prescription.duration)
                 }.</Text>
             </View>
             <View style={styles.expiryDate}>
@@ -42,19 +42,23 @@ const styles = StyleSheet.create({
         paddingBottom: 30,
         paddingRight: 'auto',
     },
+    underlined: {
+        textDecorationLine: 'underline',
+    },
     inner: {
         flex: 1,
         flexDirection: 'column',
+        fontSize: 18,
     },
     expiryDate: {
         flexDirection: 'column',
         textAlign: 'right',
     },
     title: {
-        fontSize: 20,
+        fontSize: 26,
     },
     subtitle: {
-        fontSize: 14,
+        fontSize: 16,
         fontStyle: 'italic',
     },
 });
