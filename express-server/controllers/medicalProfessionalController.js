@@ -39,12 +39,13 @@ function addUser(req, res) {
                         }
                     });
                 } else {
+                    console.log('[DEBUG] professional with email ' + req.body.email + ' already exists');
                     res.send({status: false});
                 }
             }
         })
     } else {
-        console.log('[DEBUG] admin auth incorrect');
+        console.log('[DEBUG] admin auth incorrect: "' + req.body.auth + '"');
         res.send({status: false});
     }
 }

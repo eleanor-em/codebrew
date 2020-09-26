@@ -36,7 +36,7 @@ function AuthenticatedApp(props) {
             <>
                 <div>Logged in as: {props.email}</div>
                 <div><a href="#" onClick={logout}>logout</a></div>
-                <PatientPrescriptions role={role} onExpired={() => setHasAccessToken(false)} accessToken={accessToken} />
+                <PatientPrescriptions role={role} onExpired={() => setHasAccessToken(false)} sessionToken={props.sessionToken} accessToken={accessToken} />
             </>
         );
     }

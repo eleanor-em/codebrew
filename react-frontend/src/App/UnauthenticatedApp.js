@@ -6,7 +6,10 @@ import Authentication from './pages/Authentication';
 
 function UnauthenticatedApp(props) {
     return (
-        <Authentication setEmail={props.setEmail} receiveToken={token => props.receiveToken(token)}/>
+        <>
+            <a href="#" onClick={() => props.onShowAdmin()}>admin portal</a>
+            <Authentication setEmail={props.setEmail} receiveToken={token => props.receiveToken(token)}/>
+        </>
     );
 }
 
