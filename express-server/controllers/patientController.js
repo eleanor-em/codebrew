@@ -58,6 +58,10 @@ function confirmPhoneNumber(req, res) {
 function getUserPrescriptions(req, res) {
   Patient.find({phone: req.body.phone, patient_key: req.body.patient_key})
     .populate('prescriptions')
+    .populate({
+        path: 'prescriptions',
+        populate: {path: 'drug'}
+    })
     .exec(function(err, docs) {
       if(err) {
         console.log(err);
