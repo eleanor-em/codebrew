@@ -1,20 +1,19 @@
 # codebrew
 
+## Configuration
+* `express-server/config.js` needs to be created following the example from `express-server/config.js.sample`.
+* To test locally, ensure `mobile/config.js` has the correct API address. It should point to the computer hosting the Express server on LAN.
+
 ## Back-end
 ### Express server:
-To install dependencies:
-`npm install`
-in __react-app__ folder
+To install dependencies: `npm install` in __express-server__
 
+To run: `npm start` in __express-server__
 
 ### React frontend:
-To install dependencies:
-`npm install`
-in __client__ folder (which is under react-app folder)
+To install dependencies: `npm install` in __react-frontend__
 
-To run, you need two terminals:
-1. Start the express server: `npm start` under __express-server__ folder
-2. Start react frontend: `npm start` under __react-frontend__ folder
+To run: `npm start` in __react-frontend__
 
 The files are set up for React to proxy to backend server for API calls.
 
