@@ -30,7 +30,9 @@ function Authentication(props) {
     }
 
     return (
-        <div id="main-page-background">       
+        <div id="main-page-background">   
+            <h1 className="tag-line">Prescript - where drugs are simplified</h1>
+
             { <LoginForm handleClickLogin={handleClickLogin}/> }
         </div>
     );

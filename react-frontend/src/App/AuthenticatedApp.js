@@ -21,19 +21,22 @@ function AuthenticatedApp(props) {
 
     if (!hasAccessToken) {
         return (
-            <>
-                <div>Logged in as: {props.email}</div>
-                <div><a href="#" onClick={logout}>logout</a></div>
+            <div id="main-page-background">
+                <div className="user">
+                    Logged in as: {props.email}
+                    <div><a href="#" onClick={logout}>logout</a></div>
+                </div>
+                
                 <PatientOTP logout={logout} sessionToken={props.sessionToken} receiveAccessToken={receiveAccessToken}/>
-            </>
+            </div>
         );
     } else {
         return (
-            <>
+            <div id="main-page-background">
                 <div>Logged in as: {props.email}</div>
                 <div><a href="#" onClick={logout}>logout</a></div>
                 <PatientPrescriptions role={props.role} onExpired={() => setHasAccessToken(false)} sessionToken={props.sessionToken} accessToken={accessToken} />
-            </>
+            </div>
         );
     }
 }

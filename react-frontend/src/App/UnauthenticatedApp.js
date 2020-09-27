@@ -3,12 +3,20 @@
 
 import React from 'react';
 import Authentication from './pages/Authentication';
+import "./static/sass/pages/general.scss"
+
 
 function UnauthenticatedApp(props) {
     return (
         <>
-            <a href="#" onClick={() => props.onShowAdmin()}>admin portal</a>
             <Authentication setRole={props.setRole} setEmail={props.setEmail} receiveToken={token => props.receiveToken(token)}/>
+            <div className="user">
+                <label>To be used by Admin:</label>
+                <a href="#" onClick={() => props.onShowAdmin()}>Add User</a>
+            </div>
+            {/* <div>
+                <h1>Prescript - where drugs are simplified</h1>
+            </div> */}
         </>
     );
 }

@@ -33,8 +33,10 @@ export default function AdminPage(props) {
     }
 
     return (
-        <>
-            <a href="#" onClick={() => props.onBack()}>back to login</a>
+        <div id="main-page-background">       
+        {/* <> */}
+        <a href="#" onClick={() => props.onBack()}>back to login</a>
+            <h1 className="tag-line">Prescript - where drugs are simplified</h1>
             <FormCenter>
                 <Form className="col-12 login-form" action="" method="POST" onSubmit={e => {
                     e.preventDefault();
@@ -74,6 +76,6 @@ export default function AdminPage(props) {
                     </div>
                 </Form>
             </FormCenter>
-        </>
+        </div>
     )
 }

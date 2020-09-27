@@ -8,13 +8,21 @@
     background-attachment: fixed;
     min-height: 100%;
     width: 100%;
+    color: #fff
 }
 
 .login-form {
     padding: 0px 18px 30px;
+    color: #000
 }
 
 .arrow-image{
     position: absolute;
 }
 
+.tag-line{
+    padding-top: 29px;
+    text-align: center;
+    font-family: cursive;
+    color: aliceblue;
+}
