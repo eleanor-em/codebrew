@@ -1,4 +1,4 @@
-const SMS_ACTIVE = false;
+const SMS_ACTIVE = true;
 
 const Nexmo = require('nexmo')
 
@@ -11,7 +11,9 @@ const from = 'Prescript';
 
 function sendSmsCode(code, to) {
   if (SMS_ACTIVE) {
-    nexmo.message.sendSms(from, to, 'Your Prescript verification code is: ' + code + '. Please do not reply.', {
+    const msg = 'Your Prescript verification code is: ' + code + '. Please do not reply.';
+    console.log('sending to ' + to + ': ' + msg);
+    nexmo.message.sendSms(from, to, msg, {
       type: "unicode"
     }, (err, responseData) => {
       if (err) {
