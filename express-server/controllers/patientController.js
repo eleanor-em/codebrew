@@ -4,8 +4,7 @@ const Patient = mongoose.model('Patient');
 const crypto = require('crypto');
 const sendSmsCode = require('./sendSmsCode');
 const totp = require("./totp");
-
-const SMSsecret = 'KZonfDKmCHktCGdBGaglmyFmzNgZN4gi';
+const {config} = require("../config");
 
 function registerPatient(req, res) {
     Patient.find({phone: req.body.phone}, function (err, patient) {
@@ -15,7 +14,7 @@ function registerPatient(req, res) {
             res.send({status: false});
         } else {
             if (patient.length === 0) {
-                totp(SMSsecret, {
+                totp(config.smsSecret, {
                     algorithm: 'sha256',
                     digits: 6,
                     time: Date.now() / 1000,
@@ -92,7 +91,7 @@ function getUserPrescriptions(req, res) {
 
 
 module.exports = {
-    registerPatient: registerPatient,
-    confirmPhoneNumber: confirmPhoneNumber,
-    getUserPrescriptions: getUserPrescriptions
+    registerPatient,
+    confirmPhoneNumber,
+    getUserPrescriptions
 }

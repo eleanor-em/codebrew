@@ -1,5 +1,6 @@
 import React from 'react';
 import '../static/PatientOTP.scss'
+import config from "../../config";
 
 function PatientOTP(props) {
     const [phone, setPhone] = React.useState('');
@@ -8,7 +9,7 @@ function PatientOTP(props) {
 
     function checkOtp() {
         console.log('verifying ' + phone + ' ' + otp);
-        fetch('http://localhost:5000/accessPatient', {
+        fetch(config.apiUrl + '/accessPatient', {
             method: 'POST',
             mode: 'cors',
             headers: {

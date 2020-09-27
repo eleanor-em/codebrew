@@ -1,0 +1,8 @@
+module.exports = {
+    config: {
+        smsSecret: '6pIs63Z226LP8Z6KIB9ZFzcik4eeM1qo',
+        authSecret: 'KZonfDKmCHktCGdBGaglmyFmzNgZN4gi',
+        nexmoKey: 'TWILIO KEY',
+        nexmoSecret: 'TWILIO SECRET',
+    }
+}

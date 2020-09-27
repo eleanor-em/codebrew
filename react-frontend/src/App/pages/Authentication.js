@@ -3,11 +3,12 @@
 import React, { useState } from 'react';
 import { LoginForm} from '../components/Form';
 import '../static/sass/pages/authentication.scss';
+import config from "../../config";
 
 function Authentication(props) {
     function handleClickLogin(email, password) {
         console.log('logging in as: ' + email);
-        fetch('http://localhost:5000/login', {
+        fetch(config.apiUrl + '/login', {
             method: 'POST',
             mode: 'cors',
             headers: {

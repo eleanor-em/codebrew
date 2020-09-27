@@ -1,4 +1,5 @@
 import React from 'react';
+import config from "../../config";
 
 function CreatePrescription(props) {
     const [drugName, setDrugName] = React.useState(props.drugs.length > 0 ? props.drugs[0].name : '');
@@ -8,8 +9,8 @@ function CreatePrescription(props) {
     const [totalRepeats, setTotalRepeats] = React.useState(0);
 
     function addPrescription() {
-        if (drugName && drugName !== '--' && numberOfPills != 0 && totalRepeats != 0 && frequency) {
-            fetch('http://localhost:5000/addPrescription', {
+        if (drugName && drugName !== '--' && numberOfPills !== 0 && totalRepeats !== 0 && frequency) {
+            fetch(config.apiUrl + '/addPrescription', {
                 method: 'POST',
                 mode: 'cors',
                 headers: {

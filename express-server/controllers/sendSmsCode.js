@@ -1,10 +1,11 @@
 const SMS_ACTIVE = true;
 
 const Nexmo = require('nexmo')
+const {config} = require("../config");
 
 const nexmo = new Nexmo({
-  apiKey: 'e9caa693',
-  apiSecret: 'kBR3GTuqOjb1Tqzw',
+  apiKey: config.nexmoKey,
+  apiSecret: config.nexmoSecret,
 })
  
 const from = 'Prescript';

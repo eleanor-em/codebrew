@@ -1,6 +1,7 @@
 import React from 'react';
 import {Form} from "react-bootstrap";
 import {FormCenter} from "../components/Form";
+import config from "../../config";
 
 export default function AdminPage(props) {
     const [email, setEmail] = React.useState('');
@@ -11,7 +12,7 @@ export default function AdminPage(props) {
     function submit() {
         console.log('role: ' + role);
         console.log('attempting to log in with auth: "' + auth + '"');
-        fetch('http://localhost:5000/addUser', {
+        fetch(config.apiUrl + '/addUser', {
             method: 'POST',
             mode: 'cors',
             headers: {

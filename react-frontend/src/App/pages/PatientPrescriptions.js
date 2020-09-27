@@ -1,5 +1,6 @@
 import React from 'react';
 import CreatePrescription from "./CreatePrescription";
+import config from "../../config";
 
 export default function PatientPrescriptions(props) {
     const [prescriptions, setPrescriptions] = React.useState([]);
@@ -10,7 +11,7 @@ export default function PatientPrescriptions(props) {
     const {onExpired, accessToken} = props;
 
     React.useEffect(() => {
-        fetch('http://localhost:5000/allDrugs', {
+        fetch(config.apiUrl + '/allDrugs', {
             method: 'GET',
             mode: 'cors',
             headers: {
@@ -26,7 +27,7 @@ export default function PatientPrescriptions(props) {
     }, []);
 
     function fetchPrescriptions() {
-        fetch('http://localhost:5000/getPrescriptions', {
+        fetch(config.apiUrl + '/getPrescriptions', {
             method: 'POST',
             mode: 'cors',
             headers: {
@@ -55,7 +56,7 @@ export default function PatientPrescriptions(props) {
     function dispensePrescription(id) {
         setDispensing(true);
 
-        fetch('http://localhost:5000/dispense', {
+        fetch(config.apiUrl + '/dispense', {
             method: 'POST',
             mode: 'cors',
             headers: {
