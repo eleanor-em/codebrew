@@ -80,7 +80,8 @@ export default function PatientPrescriptions(props) {
 
     return (
         <div>
-            <h3>Viewing prescriptions for {patient}</h3>
+            <br/><br/><br/><br/>
+            <h3 className="tag-line">Viewing prescriptions for {patient}</h3>
             <ul>
                 {prescriptions.map(prescription => {
                     return (

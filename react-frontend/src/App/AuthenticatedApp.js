@@ -33,8 +33,10 @@ function AuthenticatedApp(props) {
     } else {
         return (
             <div id="main-page-background">
-                <div>Logged in as: {props.email}</div>
-                <div><a href="#" onClick={logout}>logout</a></div>
+                <div className="user">
+                    Logged in as: {props.email}
+                    <div><a href="#" onClick={logout}>logout</a></div>
+                </div>
                 <PatientPrescriptions role={props.role} onExpired={() => setHasAccessToken(false)} sessionToken={props.sessionToken} accessToken={accessToken} />
             </div>
         );

@@ -36,7 +36,7 @@ function CreatePrescription(props) {
     }
 
     return (
-        <div className="PatientPrescription" style={{block: 'center', textAlign: 'center', padding: '10em'}}>
+        <div className="PatientPrescription" style={{block: 'center', textAlign: 'center', padding: '4em'}}>
             <h3>Add new prescription</h3>
             <form action="" method="POST" onSubmit={e => {
                 e.preventDefault();
@@ -73,7 +73,7 @@ function CreatePrescription(props) {
                     event.target.value = event.target.value.replaceAll(/\D/g, '');
                     setTotalRepeats(parseInt(event.target.value))
                 }}/> <br/>
-                <button type="submit">Submit</button>
+                <button className="marginTop30" type="submit">Submit</button>
             </form>
             
         </div>
