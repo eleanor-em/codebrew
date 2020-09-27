@@ -27,7 +27,7 @@ export default function PrescriptionView(props: PrescriptionViewProps) {
             </View>
             <View style={styles.top}>
                 <Text style={styles.inner}>Take {props.prescription.numberOfPills} {props.prescription.frequency}{
-                    props.prescription.duration != '-' && (' for ' + props.prescription.duration)
+                    props.prescription.duration && (' for ' + props.prescription.duration)
                 }.</Text>
             </View>
         </View>

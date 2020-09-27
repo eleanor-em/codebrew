@@ -100,6 +100,8 @@ export default function App() {
     }
 
     function updatePrescriptions(phoneNumber: string, patientKey: string) {
+        console.log('Fetching prescriptions... ' + phoneNumber + ', ' + patientKey);
+
         async function getData() {
             const { status, prescriptions } = await Api.getPrescriptions(phoneNumber, patientKey);
             if (status) {
@@ -110,7 +112,9 @@ export default function App() {
                 alert('Failed to retrieve your prescriptions.');
             }
         }
-        getData();
+        if (phoneNumber && patientKey) {
+            getData();
+        }
     }
 
     // Repeatedly check prescription data
@@ -119,7 +123,7 @@ export default function App() {
             updatePrescriptions(phoneNumber, patientKey);
         }, config.pollFrequency);
         return () => clearInterval(timer);
-    }, []);
+    }, [ phoneNumber, patientKey ]);
 
     if (!isLoadingComplete) {
         return null;

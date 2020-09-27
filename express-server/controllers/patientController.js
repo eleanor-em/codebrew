@@ -79,8 +79,10 @@ function getUserPrescriptions(req, res) {
         .exec(function (err, docs) {
             if (err) {
                 console.log(err);
+                res.send({status: false})
             } else {
                 if (docs.length === 0) {
+                    console.log('[DEBUG] no patient found');
                     res.send({status: false})
                 } else {
                     res.send({status: true, prescriptions: docs[0].prescriptions})
