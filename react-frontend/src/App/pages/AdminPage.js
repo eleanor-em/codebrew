@@ -1,7 +1,7 @@
 import React from 'react';
 import {Form} from "react-bootstrap";
 import {FormCenter} from "../components/Form";
-import config from "../../config";
+import config from "../config";
 
 export default function AdminPage(props) {
     const [email, setEmail] = React.useState('');

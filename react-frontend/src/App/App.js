@@ -9,6 +9,7 @@ import './App.css';
 import AuthenticatedApp from './AuthenticatedApp';
 import UnauthenticatedApp from './UnauthenticatedApp';
 import AdminPage from "./pages/AdminPage";
+import config from "./config";
 
 function App() {
     const [loggedIn, setLoggedIn] = React.useState(false);
@@ -16,6 +17,8 @@ function App() {
     const [showAdmin, setShowAdmin] = React.useState(false);
     const [email, setEmail] = React.useState('');
     const [role, setRole] = React.useState('');
+
+    console.log(config);
 
     function logout() {
         setToken('');

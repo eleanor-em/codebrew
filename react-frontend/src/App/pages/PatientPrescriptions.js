@@ -1,6 +1,6 @@
 import React from 'react';
 import CreatePrescription from "./CreatePrescription";
-import config from "../../config";
+import config from "../config";
 
 export default function PatientPrescriptions(props) {
     const [prescriptions, setPrescriptions] = React.useState([]);

@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { LoginForm} from '../components/Form';
 import '../static/sass/pages/authentication.scss';
-import config from "../../config";
+import config from "../config";
 
 function Authentication(props) {
     function handleClickLogin(email, password) {

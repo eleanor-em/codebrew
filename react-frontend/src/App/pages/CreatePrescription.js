@@ -1,5 +1,5 @@
 import React from 'react';
-import config from "../../config";
+import config from "../config";
 
 function CreatePrescription(props) {
     const [drugName, setDrugName] = React.useState(props.drugs.length > 0 ? props.drugs[0].name : '');

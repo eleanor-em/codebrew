@@ -1,6 +1,6 @@
 import React from 'react';
 import '../static/PatientOTP.scss'
-import config from "../../config";
+import config from "../config";
 
 function PatientOTP(props) {
     const [phone, setPhone] = React.useState('');
